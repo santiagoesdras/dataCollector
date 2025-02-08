@@ -24,10 +24,7 @@ using dataCollector;
                 }
 
                 Console.WriteLine("Obteniendo informacion de red...");
-
-                network.DisplayInfo();
-                
-                Console.WriteLine($"MAC Address: {network.MacAddress}");  
+                network.DisplayInfo();                
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
