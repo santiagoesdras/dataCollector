@@ -1,0 +1,11 @@
+# Carpetas y  archivos de compilacion
+bin/
+obj/
+out/
+
+# Archivos de dependencias y paquetes
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+
