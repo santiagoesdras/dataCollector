@@ -15,5 +15,30 @@ namespace dataCollector{
             Console.WriteLine($"IP Address: {IpAddress}");
             Console.WriteLine($"Nombre de Dominio: {Domain}");
         }
+        public void GetNetworkInfo(){
+            try{
+                foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces()){
+                    if(nic.OperationalStatus == OperationalStatus.Up){
+                        MacAddress = nic.GetPhysicalAddress().ToString();
+                        break;
+                    }
+                }
+
+                string hostName = Dns.GetHostName();
+                IPHostEntry hostEntry = Dns.GetHostEntry(hostName);
+                foreach (IPAddress ip in hostEntry.AddressList){
+                    if(ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork){
+                        IpAddress = ip.ToString();
+                        break;
+                    }
+                }
+                
+                Domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
+                UserName = Environment.UserName;
+                Console.WriteLine(UserName);
+            }catch (Exception e){
+                Console.WriteLine("Error obteniendo informacion de red: " + e.Message);
+            }
+        }
     }
 }
