@@ -7,7 +7,6 @@ namespace dataCollector{
         public virtual void DisplayInfo(){
             Console.WriteLine($"Sistema Operativo: {OperatingSystem}");
             Console.WriteLine($"Nombre del Equipo: {DeviceName}");
-            Console.WriteLine($"Usuario: {UserName}");
         }
     } 
 }

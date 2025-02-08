@@ -10,10 +10,10 @@ namespace dataCollector{
 
         public override void DisplayInfo()
         {
-            base.DisplayInfo();
             Console.WriteLine($"MAC Address: {MacAddress}");
             Console.WriteLine($"IP Address: {IpAddress}");
             Console.WriteLine($"Nombre de Dominio: {Domain}");
+            Console.WriteLine($"Usuario en dominio: {UserName}");
         }
         public void GetNetworkInfo(){
             try{
@@ -35,7 +35,6 @@ namespace dataCollector{
                 
                 Domain = IPGlobalProperties.GetIPGlobalProperties().DomainName;
                 UserName = Environment.UserName;
-                Console.WriteLine(UserName);
             }catch (Exception e){
                 Console.WriteLine("Error obteniendo informacion de red: " + e.Message);
             }

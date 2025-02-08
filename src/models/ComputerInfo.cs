@@ -36,7 +36,28 @@ namespace dataCollector{
                     RamSize = Convert.ToInt32(Convert.ToDouble(obj["TotalPhysicalMemory"]) / (1024 * 1024));
                 }
                 DeviceName = Dns.GetHostName();
-                OperatingSystem = Environment.OSVersion.ToString();
+
+                //Obteniendo version de Windows en la que se ejecuta el programa
+                string version = Environment.OSVersion.Version.ToString();
+                if(version.StartsWith("10.0.")){
+                    int build = Environment.OSVersion.Version.Build;
+                    if(build >= 22000)
+                        OperatingSystem = "Windows 11";
+                    else
+                        OperatingSystem = "Windows 10";
+                }
+                else if(version.StartsWith("6.3"))
+                    OperatingSystem = "Windows 8.1";
+                else if(version.StartsWith("6.2"))
+                    OperatingSystem = "Windows 8";
+                else if(version.StartsWith("6.1"))
+                    OperatingSystem = "Windows 7";
+                else if(version.StartsWith("6.0"))
+                    OperatingSystem = "Windows Vista";
+                else if(version.StartsWith("5.1"))
+                    OperatingSystem = "Windows XP";
+                else
+                    OperatingSystem = "Version de Windows no encontrada";
             }catch(Exception e){
                 Console.WriteLine("Error obteniendo informacion del sistema: " + e.Message);
             }
