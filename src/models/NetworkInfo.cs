@@ -39,5 +39,17 @@ namespace dataCollector{
                 Console.WriteLine("Error obteniendo informacion de red: " + e.Message);
             }
         }
+        public string GetMacAddress(){
+            return MacAddress;
+        }
+        public string GetIpAddress(){
+            return IpAddress;
+        }
+        public string GetDomain(){
+            return Domain;
+        }
+        public string GetUserName(){
+            return UserName;
+        }
     }
 }

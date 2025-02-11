@@ -26,6 +26,9 @@ using dataCollector;
                 
                 computer.Disks = DiskInfo.GetDiskInfo();
 
+                JsonManager jsonManager = new JsonManager();
+                string json = jsonManager.GenerateJson();
+
                 Console.WriteLine("\nInformacion del sistema: ");
                 computer.DisplayInfo();
                 network.DisplayInfo();                
@@ -36,7 +39,10 @@ using dataCollector;
                 foreach(var disk in computer.Disks){
                     disk.DisplayInfo();
                 }
+                Console.WriteLine("Presione Enter para guardar la informacion en un Json");
                 Console.ReadLine();
+                Console.WriteLine(json);
+                jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
 
             }catch(Exception e){
                 Console.WriteLine(e.ToString());

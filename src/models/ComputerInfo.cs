@@ -10,6 +10,7 @@ namespace dataCollector{
         public string SerialNumber { get; set; } = "";
         public int RamSize { get; set; }
         public List<DiskInfo> Disks { get; set; } = new List<DiskInfo>();
+        public string Processor { get; set; } = "";
 
         public override void DisplayInfo(){
             base.DisplayInfo();
@@ -17,6 +18,7 @@ namespace dataCollector{
             Console.WriteLine($"Modelo: {Model}");
             Console.WriteLine($"Numero de Serie: {SerialNumber}");
             Console.WriteLine($"RAM: {RamSize} MB");
+            Console.WriteLine($"Procesador: {Processor}");
         }
         public void GetSystemInfo(){
             try{
@@ -34,6 +36,11 @@ namespace dataCollector{
                 searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystem");
                 foreach (ManagementObject obj in searcher.Get()){
                     RamSize = Convert.ToInt32(Convert.ToDouble(obj["TotalPhysicalMemory"]) / (1024 * 1024));
+                }
+
+                searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
+                foreach (ManagementObject obj in searcher.Get()){
+                    Processor = obj["Name"].ToString();
                 }
                 DeviceName = Dns.GetHostName();
 
@@ -62,6 +69,29 @@ namespace dataCollector{
                 Console.WriteLine("Error obteniendo informacion del sistema: " + e.Message);
             }
         }
-        
+        public string GetOperatingSystem(){
+            return OperatingSystem;
+        }
+        public string GetDeviceName(){
+            return DeviceName;
+        }
+        public string GetManufacturer(){
+            return Manufacturer;
+        }
+        public string GetModel(){
+            return Model;
+        }
+        public string GetSerialNumber(){
+            return SerialNumber;
+        }
+        public int GetRamSize(){
+            return RamSize;
+        }
+        public List<DiskInfo> GetDisksInfo(){
+            return Disks;
+        }
+        public string GetProcessorInfo(){
+            return Processor;
+        }
     }
 }
