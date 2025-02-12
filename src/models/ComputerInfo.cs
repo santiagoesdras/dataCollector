@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Management;
 using System.Net;
 
@@ -11,6 +12,7 @@ namespace dataCollector{
         public int RamSize { get; set; }
         public List<DiskInfo> Disks { get; set; } = new List<DiskInfo>();
         public string Processor { get; set; } = "";
+        public string ProcessorSpeed { get; set; } = "";
 
         public override void DisplayInfo(){
             base.DisplayInfo();
@@ -19,6 +21,7 @@ namespace dataCollector{
             Console.WriteLine($"Numero de Serie: {SerialNumber}");
             Console.WriteLine($"RAM: {RamSize} MB");
             Console.WriteLine($"Procesador: {Processor}");
+            Console.WriteLine($"Velocidad del procesado: {float.Parse(ProcessorSpeed)/1000}Ghz");
         }
         public void GetSystemInfo(){
             try{
@@ -41,6 +44,7 @@ namespace dataCollector{
                 searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
                 foreach (ManagementObject obj in searcher.Get()){
                     Processor = obj["Name"].ToString();
+                    ProcessorSpeed =  obj["MaxClockSpeed"].ToString();
                 }
                 DeviceName = Dns.GetHostName();
 
@@ -92,6 +96,9 @@ namespace dataCollector{
         }
         public string GetProcessorInfo(){
             return Processor;
+        }
+        public string GetProcessorSpeed(){
+            return ProcessorSpeed;
         }
     }
 }

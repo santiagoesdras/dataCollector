@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using dataCollector;
 
     class Program{
+        private static string format = "csv";
         static void Main(string[] args){
 
             try{
@@ -28,6 +29,7 @@ using dataCollector;
 
                 JsonManager jsonManager = new JsonManager();
                 string json = jsonManager.GenerateJson();
+                CsvHandler csvHandler = new CsvHandler();
 
                 Console.WriteLine("\nInformacion del sistema: ");
                 computer.DisplayInfo();
@@ -39,10 +41,14 @@ using dataCollector;
                 foreach(var disk in computer.Disks){
                     disk.DisplayInfo();
                 }
-                Console.WriteLine("Presione Enter para guardar la informacion en un Json");
+                Console.WriteLine("Presione Enter para guardar la informacion en el formato seleccionado");
                 Console.ReadLine();
                 Console.WriteLine(json);
-                jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
+                if(format == "json"){
+                    jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
+                }else if(format == "csv"){
+                    csvHandler.insertData();
+                }
 
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
