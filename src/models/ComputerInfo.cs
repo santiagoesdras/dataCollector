@@ -21,7 +21,7 @@ namespace dataCollector{
             Console.WriteLine($"Numero de Serie: {SerialNumber}");
             Console.WriteLine($"RAM: {RamSize} MB");
             Console.WriteLine($"Procesador: {Processor}");
-            Console.WriteLine($"Velocidad del procesado: {float.Parse(ProcessorSpeed)/1000}Ghz");
+            Console.WriteLine($"Velocidad del procesador: {float.Parse(ProcessorSpeed)/1000}Ghz");
         }
         public void GetSystemInfo(){
             try{
@@ -99,6 +99,9 @@ namespace dataCollector{
         }
         public string GetProcessorSpeed(){
             return ProcessorSpeed;
+        }
+        public void SetDeviceName(string activeNumber){
+            DeviceName = activeNumber;
         }
     }
 }
