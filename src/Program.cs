@@ -26,6 +26,9 @@ using dataCollector;
                 Console.WriteLine("Obteniendo informacion del sistema...");
                 ComputerInfo computer = new ComputerInfo();
                 computer.GetSystemInfo();
+
+                Console.WriteLine("Obteniendo informacion de monitor...");
+                MonitorInfo monitor = new MonitorInfo();
                 
                 computer.Disks = DiskInfo.GetDiskInfo();
 
@@ -35,7 +38,8 @@ using dataCollector;
 
                 Console.WriteLine("\nInformacion del sistema: ");
                 computer.DisplayInfo();
-                network.DisplayInfo();                
+                network.DisplayInfo();
+                monitor.DisplayInfo();                
 
                 Console.WriteLine("\n===========================================");
 
