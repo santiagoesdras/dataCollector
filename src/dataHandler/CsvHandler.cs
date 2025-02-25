@@ -7,17 +7,18 @@ using Microsoft.VisualBasic;
 
 namespace dataCollector{
     public class CsvHandler{
-        private static string[] datas = {"Nombre de Usuario", "Serie", "Activo", "Modelo", "Procesador", "Velocidad (Ghz)", "Memoria (MB)",
-         "Disco", "Sistema Operativo", "Ip", "Office"};
-        public static List<string> ComputerInfo = new List<string>();
-        public void dataWritter(string[] CsvStrings){
-            string filepath = "datos.csv";
-            if(writeHeader(filepath)){
+        private static string[][] datas = {["Nombre de Usuario", "Serie", "Activo", "Modelo", "Procesador", "Velocidad (Ghz)", "Memoria (MB)",
+         "Disco", "Sistema Operativo", "Ip", "Office"], ["Nombre de Usuario", "Marca", "Activo", "Serie"], ["Nombre de usuario", "Activo", "Marca", "Modelo", "Serie"]};
+        public static List<string> ActiveInfo = new List<string>();
+        public void dataWritter(string[] CsvStrings, int activeType){
+            ActiveInfo.Clear();
+            string[] filepath = {"CPU.csv", "Monitor.csv", "UPS.csv"};
+            if(writeHeader(filepath[activeType], activeType)){
                 try{
                     insertData(CsvStrings);
-                    using (var writer = new StreamWriter(filepath, append: true))
+                    using (var writer = new StreamWriter(filepath[activeType], append: true))
                     using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture))){
-                        foreach(string info in ComputerInfo){
+                        foreach(string info in ActiveInfo){
                             csv.WriteField(info);
                         }
                         csv.NextRecord();
@@ -27,13 +28,13 @@ namespace dataCollector{
                 }
             }
         }
-        public bool writeHeader(string filepath){
+        public bool writeHeader(string filepath, int activeType){
             bool fileExists = File.Exists(filepath);
             bool fileIsEmpty = fileExists && new FileInfo(filepath).Length == 0;
             if(!fileExists || fileIsEmpty){
                 using (var writer = new StreamWriter(filepath, append: true))
                 using (var csv = new  CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture))){
-                    foreach( string data in datas){
+                    foreach( string data in datas[activeType]){
                         csv.WriteField(data);
                     }
                     csv.NextRecord();
@@ -46,7 +47,7 @@ namespace dataCollector{
         }
         public void insertData(string[] CsvStrings){
             foreach(string data in CsvStrings){
-                ComputerInfo.Add(data);
+                ActiveInfo.Add(data);
             }
         }
     }

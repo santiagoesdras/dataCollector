@@ -5,19 +5,53 @@
     Este software es propiedad de [Esdras Santiago].
     Está diseñado para uso interno y no se permite su distribución sin autorización.
 
-    Para más información, contacta a: [github.com/santiagoesdras]
+    Para más información, visita: [github.com/santiagoesdras]
 */
-
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using dataCollector;
 
     class Program{
         private static string format = "csv";
+        public static string globalUserName = "";
         static void Main(string[] args){
-
+            string[] types = {"CPU", "Monitor", "UPS"};
+            foreach(string type in types){
+                string response = "";
+                Console.WriteLine($"Desea almacenar la informacion de {type}? Si(s), No(n): ");
+                response = Console.ReadLine().ToLower();
+                if(response == "s"){
+                    infoWritterSelector(type);
+                }
+                if(globalUserName == ""){
+                while(true){
+                string tempUserName;
+                Console.Write("Ingrese el nombre de usuario al que se asociara el ups y el monitor: ");
+                tempUserName = Console.ReadLine();
+                Console.WriteLine($"Nombre de usuario: {tempUserName}");
+                Console.Write("Nombre de usuario para asociar ups y monitor correcto? Si(s), No(n): ");
+                response = Console.ReadLine().ToLower();
+                if(response == "s"){
+                    globalUserName = tempUserName;
+                    break;
+                }}
+            }
+            }
+        }
+        public static void infoWritterSelector(string type){
+            if(type == ""){
+                Console.WriteLine("Tipo de activo no reconocido");
+            }else if(type == "CPU"){
+                CpuInfo();
+            }else if(type == "Monitor"){
+                ScreenInfo();
+            }else if(type == "UPS"){
+                UpsInfo();
+            }
+        }
+        public static void CpuInfo(){
+            
             try{
                 Console.WriteLine("Obteniendo informacion de red...");
                 NetworkInfo network = new NetworkInfo();
@@ -47,36 +81,48 @@ using dataCollector;
                 foreach(var disk in computer.Disks){
                     disk.DisplayInfo();
                 }
-                while(true){
+                bool dataVerifyFlag = true;
+                while(dataVerifyFlag){
+                    DataVerify dataVerify = new DataVerify();
                     string activeNumber = computer.GetDeviceName();
-                    if(activeNumberVerify(ref activeNumber)){
+                    string userName = network.GetUserName();
+                    if(dataVerify.dataVerify(ref activeNumber, "Numero de activo") && dataVerify.dataVerify(ref userName, "Nombre de usuario")){
                         logger(ref network, ref computer, ref jsonManager, ref csvHandler, ref json);  
-                        break; 
+                        dataVerifyFlag = false; 
                     }
                     computer.SetDeviceName(activeNumber);
+                    network.SetUserName(userName);
+                    globalUserName = userName;
                 }
 
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
         }
-        public static bool activeNumberVerify(ref string activeNumber){
-             Console.WriteLine($"Es este el numero de activo correcto? {activeNumber} Si(s), No(n)");
-                string response = Console.ReadLine().ToLower();
-                if(response == "n"){
-                    Console.WriteLine("Ingrese el numero de activo correcto: ");
-                    string input = Console.ReadLine();
-                    activeNumber = !string.IsNullOrEmpty(input) ? input.Remove(0,1) : input;
-                    return false;
-                }else if (response == "s"){
-                    return true;
-                }else{
-                    Console.WriteLine($"La opcion {response} no existe");
-                    return false;
-                }
+        public static void ScreenInfo(){
+            MonitorInfo monitorInfo = new MonitorInfo();
+            string[] CsvStrings = {
+                globalUserName,
+                monitorInfo.GetMonitorBrand(),
+                monitorInfo.GetMonitorActiveNumber(),
+                monitorInfo.GetMonitorSerialNumber()
+            };
+            CsvHandler csvHandler = new CsvHandler();
+            csvHandler.dataWritter(CsvStrings, 1);
+        }
+        public static void UpsInfo(){
+            UpsInfo upsInfo = new UpsInfo();
+            string [] CsvStrings = {
+                globalUserName,
+                upsInfo.GetUpsActiveNumber(),
+                upsInfo.GetUpsBrand(),
+                upsInfo.GetUpsModel(),
+                upsInfo.GetUpsSerialNumber()
+            };
+            CsvHandler csvHandler = new CsvHandler();
+            csvHandler.dataWritter(CsvStrings, 2);
         }
         public static void logger(ref NetworkInfo network, ref ComputerInfo computer, ref JsonManager jsonManager, ref CsvHandler csvHandler, ref string json){
-            Console.WriteLine(json);
                 if(format == "json"){
                     jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
                 }else if(format == "csv"){
@@ -94,9 +140,10 @@ using dataCollector;
                         computer.GetRamSize().ToString(),
                         disks.First(),
                         computer.GetOperatingSystem(),
-                        network.GetIpAddress()
+                        network.GetIpAddress(),
+                        computer.GetOfficeVersion()
                     };
-                    csvHandler.dataWritter(CsvStrings);
+                    csvHandler.dataWritter(CsvStrings, 0);
                 }
         }
     }

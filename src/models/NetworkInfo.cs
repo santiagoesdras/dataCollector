@@ -51,5 +51,8 @@ namespace dataCollector{
         public string GetUserName(){
             return UserName;
         }
+        public void SetUserName(string userName){
+            UserName = userName;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace dataCollector{
         public List<DiskInfo> Disks { get; set; } = new List<DiskInfo>();
         public string Processor { get; set; } = "";
         public string ProcessorSpeed { get; set; } = "";
+        public string OfficeVersion { get; set; } = "Office 365";
 
         public override void DisplayInfo(){
             base.DisplayInfo();
@@ -99,6 +100,9 @@ namespace dataCollector{
         }
         public string GetProcessorSpeed(){
             return ProcessorSpeed;
+        }
+        public string GetOfficeVersion(){
+            return OfficeVersion;
         }
         public void SetDeviceName(string activeNumber){
             DeviceName = activeNumber;

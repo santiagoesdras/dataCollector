@@ -1,19 +1,21 @@
 namespace dataCollector{
-    public class MonitorInfo{
-        public static string Brand { get; set; } = "";
+    public class UpsInfo{
         public static string ActiveNumber { get; set; } =  "";
+        public static string Brand { get; set; } = "";
+        public static string Model { get; set; } = ""; 
         public static string SerialNumber { get; set; } = "";
-        public MonitorInfo(){
-            GetMonitorInfo();
+        public UpsInfo(){
+            GetUpsInfo();
         }
         public void DisplayInfo(){
-            Console.WriteLine($"Marca: {Brand}");
             Console.WriteLine($"Numero de activo: {ActiveNumber}");
+            Console.WriteLine($"Marca: {Brand}");
+            Console.WriteLine($"Modelo {Model}");
             Console.WriteLine($"Numero de serie: {SerialNumber}");
         }
-        public static void GetMonitorInfo(){
+        public static void GetUpsInfo(){
             try{
-                string[] information = {"Marca", "Numero de activo", "Numero de serie"};
+                string[] information = {"Numero de activo", "Marca", "Modelo", "Numero de serie"};
                 for(int i  = 0; i < information.Length; i++){
                     string info;
                     while(true){
@@ -28,21 +30,25 @@ namespace dataCollector{
                             break;
                         }
                     }
-                    Brand = i == 0 ? info: Brand;
-                    ActiveNumber = i == 1 ? info : ActiveNumber;
-                    SerialNumber = i == 2 ? info : SerialNumber;
+                    ActiveNumber = i == 0 ? info : ActiveNumber;
+                    Brand = i == 1 ? info: Brand;
+                    Model = i == 2 ? info: Model;
+                    SerialNumber = i == 3 ? info : SerialNumber;
                 }
             }catch(Exception e){
-                Console.WriteLine($"Error al obtener datos del monitor: {e.Message}");
+                Console.WriteLine($"Error al obtener datos del UPS: {e.Message}");
             }
         }
-        public string GetMonitorBrand(){
+        public string GetUpsActiveNumber(){
+            return ActiveNumber.ToString();
+        }
+        public string GetUpsBrand(){
             return Brand.ToString();
         }
-        public string GetMonitorActiveNumber(){
-            return ActiveNumber.ToString(); 
+        public string GetUpsModel(){
+            return Model.ToString(); 
         }
-        public string GetMonitorSerialNumber(){
+        public string GetUpsSerialNumber(){
             return SerialNumber.ToString();
         }
     }
