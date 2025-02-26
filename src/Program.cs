@@ -7,15 +7,17 @@
 
     Para más información, visita: [github.com/santiagoesdras]
 */
-using System.ComponentModel.Design;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
+
 using dataCollector;
+using dataCollector.ui;
 
     class Program{
         private static string format = "csv";
         public static string globalUserName = "";
         static void Main(string[] args){
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
             string[] types = {"CPU", "Monitor", "UPS"};
             foreach(string type in types){
                 string response = "";
