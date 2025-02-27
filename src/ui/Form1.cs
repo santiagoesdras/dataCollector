@@ -6,11 +6,14 @@ namespace dataCollector.ui
     public class Form1 : Form
     {
         private System.ComponentModel.IContainer components = null;
+        private Dictionary<string, string> _PcDataBoxes;
 
 
-        public Form1()
+        public Form1(Dictionary<string, string> PcDataBoxes)
         {
             InitializeComponent();
+            this.Shown += Form1_Shown;
+            _PcDataBoxes = PcDataBoxes;
         }
 
         protected override void Dispose(bool disposing)
@@ -28,16 +31,16 @@ namespace dataCollector.ui
             
             // Inicialización de controles
             this.label1 = new System.Windows.Forms.Label();
-            this.UserName = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.SerialNumber = new System.Windows.Forms.TextBox();
+            this.RAM = new System.Windows.Forms.TextBox();
+            this.DiskInfo = new System.Windows.Forms.TextBox();
+            this.OperativeSystem = new System.Windows.Forms.TextBox();
+            this.Ip = new System.Windows.Forms.TextBox();
+            this.OfficeVersion = new System.Windows.Forms.TextBox();
+            this.ActiveNumber = new System.Windows.Forms.TextBox();
+            this.Model = new System.Windows.Forms.TextBox();
+            this.Processor = new System.Windows.Forms.TextBox();
+            this.ProcessorSpeed = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -53,7 +56,7 @@ namespace dataCollector.ui
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.textBox18 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.UserName = new System.Windows.Forms.TextBox();
             // 
             // label1
             // 
@@ -66,77 +69,77 @@ namespace dataCollector.ui
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // UserName
+            // SerialNumber
             // 
-            this.UserName.Location = new System.Drawing.Point(26, 56);
-            this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(275, 20);
-            this.UserName.TabIndex = 1;
-            this.UserName.Text = "text1";
+            this.SerialNumber.Location = new System.Drawing.Point(26, 56);
+            this.SerialNumber.Name = "SerialNumber";
+            this.SerialNumber.Size = new System.Drawing.Size(275, 20);
+            this.SerialNumber.TabIndex = 1;
+            this.SerialNumber.Text = "text1";
             // 
-            // textBox6
+            // RAM
             // 
-            this.textBox6.Location = new System.Drawing.Point(330, 56);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(275, 20);
-            this.textBox6.TabIndex = 6;
-            this.textBox6.Text = "text6";
+            this.RAM.Location = new System.Drawing.Point(330, 56);
+            this.RAM.Name = "RAM";
+            this.RAM.Size = new System.Drawing.Size(275, 20);
+            this.RAM.TabIndex = 6;
+            this.RAM.Text = "text6";
             // 
-            // textBox7
+            // DiskInfo
             // 
-            this.textBox7.Location = new System.Drawing.Point(330, 93);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(275, 20);
-            this.textBox7.TabIndex = 7;
+            this.DiskInfo.Location = new System.Drawing.Point(330, 93);
+            this.DiskInfo.Name = "DiskInfo";
+            this.DiskInfo.Size = new System.Drawing.Size(275, 20);
+            this.DiskInfo.TabIndex = 7;
             // 
-            // textBox8
+            // OperativeSystem
             // 
-            this.textBox8.Location = new System.Drawing.Point(330, 132);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(275, 20);
-            this.textBox8.TabIndex = 8;
+            this.OperativeSystem.Location = new System.Drawing.Point(330, 132);
+            this.OperativeSystem.Name = "OperativeSystem";
+            this.OperativeSystem.Size = new System.Drawing.Size(275, 20);
+            this.OperativeSystem.TabIndex = 8;
             // 
-            // textBox9
+            // Ip
             // 
-            this.textBox9.Location = new System.Drawing.Point(330, 169);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(275, 20);
-            this.textBox9.TabIndex = 9;
+            this.Ip.Location = new System.Drawing.Point(330, 169);
+            this.Ip.Name = "Ip";
+            this.Ip.Size = new System.Drawing.Size(275, 20);
+            this.Ip.TabIndex = 9;
             // 
-            // textBox10
+            // OfficeVersion
             // 
-            this.textBox10.Location = new System.Drawing.Point(330, 209);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(275, 20);
-            this.textBox10.TabIndex = 10;
+            this.OfficeVersion.Location = new System.Drawing.Point(330, 209);
+            this.OfficeVersion.Name = "OfficeVersion";
+            this.OfficeVersion.Size = new System.Drawing.Size(275, 20);
+            this.OfficeVersion.TabIndex = 10;
             // 
-            // textBox2
+            // ActiveNumber
             // 
-            this.textBox2.Location = new System.Drawing.Point(26, 93);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(275, 20);
-            this.textBox2.TabIndex = 11;
+            this.ActiveNumber.Location = new System.Drawing.Point(26, 93);
+            this.ActiveNumber.Name = "ActiveNumber";
+            this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.ActiveNumber.TabIndex = 11;
             // 
-            // textBox3
+            // Model
             // 
-            this.textBox3.Location = new System.Drawing.Point(26, 132);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(275, 20);
-            this.textBox3.TabIndex = 12;
+            this.Model.Location = new System.Drawing.Point(26, 132);
+            this.Model.Name = "Model";
+            this.Model.Size = new System.Drawing.Size(275, 20);
+            this.Model.TabIndex = 12;
             // 
-            // textBox4
+            // Processor
             // 
-            this.textBox4.Location = new System.Drawing.Point(26, 169);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(275, 20);
-            this.textBox4.TabIndex = 13;
+            this.Processor.Location = new System.Drawing.Point(26, 169);
+            this.Processor.Name = "Processor";
+            this.Processor.Size = new System.Drawing.Size(275, 20);
+            this.Processor.TabIndex = 13;
             // 
-            // textBox5
+            // ProcessorSpeed
             // 
-            this.textBox5.Location = new System.Drawing.Point(26, 209);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(275, 20);
-            this.textBox5.TabIndex = 14;
+            this.ProcessorSpeed.Location = new System.Drawing.Point(26, 209);
+            this.ProcessorSpeed.Name = "ProcessorSpeed";
+            this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
+            this.ProcessorSpeed.TabIndex = 14;
             // 
             // checkBox1
             // 
@@ -264,14 +267,16 @@ namespace dataCollector.ui
             this.label3.Text = "Informacion Monitor";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox19
+            // UserName
             // 
-            this.textBox19.Location = new System.Drawing.Point(26, 21);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(172, 20);
-            this.textBox19.TabIndex = 30;
-            // Agregar controles al formulario
-            this.Controls.Add(this.textBox19);
+            this.UserName.Location = new System.Drawing.Point(26, 21);
+            this.UserName.Name = "UserName";
+            this.UserName.Size = new System.Drawing.Size(172, 20);
+            this.UserName.TabIndex = 30;
+
+
+            // Añadir los objetos al formulario
+            this.Controls.Add(this.UserName);
             this.Controls.Add(this.textBox15);
             this.Controls.Add(this.textBox16);
             this.Controls.Add(this.textBox17);
@@ -287,16 +292,16 @@ namespace dataCollector.ui
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.UserName);
+            this.Controls.Add(this.ProcessorSpeed);
+            this.Controls.Add(this.Processor);
+            this.Controls.Add(this.Model);
+            this.Controls.Add(this.ActiveNumber);
+            this.Controls.Add(this.OfficeVersion);
+            this.Controls.Add(this.Ip);
+            this.Controls.Add(this.OperativeSystem);
+            this.Controls.Add(this.DiskInfo);
+            this.Controls.Add(this.RAM);
+            this.Controls.Add(this.SerialNumber);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "DataCollector";
@@ -306,7 +311,7 @@ namespace dataCollector.ui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 550);
             this.Text = "Data Collector";
-            this.ResumeLayout(false);
+            this.ResumeLayout(true);
             this.PerformLayout();
         }
 
@@ -324,33 +329,56 @@ namespace dataCollector.ui
         {
             this.Close();
         }
+        private void Form1_Shown(object sender, EventArgs e){
+            UpdatePcTextBoxes(_PcDataBoxes); // Llama la función después de que la UI se ha cargado
+        }
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox UserName;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        public void UpdatePcTextBoxes(Dictionary<string, string> PcDataBoxes){
+            this.SuspendLayout();
+
+            foreach(Control control in this.Controls){
+                if(control is TextBox textBoxTemp){
+                    if(PcDataBoxes.TryGetValue(textBoxTemp.Name, out string newTextBox)){
+                        textBoxTemp.Text = newTextBox;
+                    }
+                }
+            }
+            this.ResumeLayout(false);
+        }
+
+        //Declaracion de TextBoxes
+        private System.Windows.Forms.TextBox SerialNumber;
+        private System.Windows.Forms.TextBox ActiveNumber;
+        private System.Windows.Forms.TextBox Model;
+        private System.Windows.Forms.TextBox Processor;
+        private System.Windows.Forms.TextBox ProcessorSpeed;
+        private System.Windows.Forms.TextBox RAM;
+        private System.Windows.Forms.TextBox DiskInfo;
+        private System.Windows.Forms.TextBox OperativeSystem;
+        private System.Windows.Forms.TextBox Ip;
+        private System.Windows.Forms.TextBox OfficeVersion;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox textBox17;
         private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox UserName;
+
+        //Declaracion de CheckBoxes
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+
+        //Declaracion de Buttons
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+
+        //Declaracion de Labels
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.Label label1;
     }
 }

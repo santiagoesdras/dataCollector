@@ -9,37 +9,14 @@
 */
 
 using dataCollector;
+using dataCollector.dataHandler;
 using dataCollector.ui;
-
+using dataCollector.dataHandler;
     class Program{
         private static string format = "csv";
         public static string globalUserName = "";
         static void Main(string[] args){
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-            string[] types = {"CPU", "Monitor", "UPS"};
-            foreach(string type in types){
-                string response = "";
-                Console.WriteLine($"Desea almacenar la informacion de {type}? Si(s), No(n): ");
-                response = Console.ReadLine().ToLower();
-                if(response == "s"){
-                    infoWritterSelector(type);
-                }
-                if(globalUserName == ""){
-                while(true){
-                string tempUserName;
-                Console.Write("Ingrese el nombre de usuario al que se asociara el ups y el monitor: ");
-                tempUserName = Console.ReadLine();
-                Console.WriteLine($"Nombre de usuario: {tempUserName}");
-                Console.Write("Nombre de usuario para asociar ups y monitor correcto? Si(s), No(n): ");
-                response = Console.ReadLine().ToLower();
-                if(response == "s"){
-                    globalUserName = tempUserName;
-                    break;
-                }}
-            }
-            }
+            CpuInfo();
         }
         public static void infoWritterSelector(string type){
             if(type == ""){
@@ -55,48 +32,20 @@ using dataCollector.ui;
         public static void CpuInfo(){
             
             try{
-                Console.WriteLine("Obteniendo informacion de red...");
                 NetworkInfo network = new NetworkInfo();
                 network.GetNetworkInfo();
 
-                Console.WriteLine("Obteniendo informacion del sistema...");
                 ComputerInfo computer = new ComputerInfo();
-                computer.GetSystemInfo();
-
-               /*  Console.WriteLine("Obteniendo informacion de monitor...");
-                MonitorInfo monitor = new MonitorInfo(); */
-                
+                computer.GetSystemInfo();                
                 computer.Disks = DiskInfo.GetDiskInfo();
 
-                JsonManager jsonManager = new JsonManager();
-                string json = jsonManager.GenerateJson();
-                CsvHandler csvHandler = new CsvHandler();
+                UiDataGenerator uiDataGenerator = new UiDataGenerator();
 
-                Console.WriteLine("\nInformacion del sistema: ");
-                computer.DisplayInfo();
-                network.DisplayInfo();
-/*                 monitor.DisplayInfo();   */              
-
-                Console.WriteLine("\n===========================================");
-
-                Console.WriteLine("\nObteniendo informacion de discos ...");
-                foreach(var disk in computer.Disks){
-                    disk.DisplayInfo();
-                }
-                bool dataVerifyFlag = true;
-                while(dataVerifyFlag){
-                    DataVerify dataVerify = new DataVerify();
-                    string activeNumber = computer.GetDeviceName();
-                    string userName = network.GetUserName();
-                    if(dataVerify.dataVerify(ref activeNumber, "Numero de activo") && dataVerify.dataVerify(ref userName, "Nombre de usuario")){
-                        logger(ref network, ref computer, ref jsonManager, ref csvHandler, ref json);  
-                        dataVerifyFlag = false; 
-                    }
-                    computer.SetDeviceName(activeNumber);
-                    network.SetUserName(userName);
-                    globalUserName = userName;
-                }
-
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Form1 form1 = new Form1(uiDataGenerator.DataToDictionary(ref computer, ref network));
+            Application.Run(form1);
+            
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
