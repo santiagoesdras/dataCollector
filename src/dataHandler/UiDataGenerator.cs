@@ -6,13 +6,17 @@ namespace dataCollector.dataHandler{
                             disks.Add(disk.Name.ToString() + " " + (disk.TotalSize/(1024 * 1024 * 1024)).ToString() + "GB");
                         }
             Dictionary<string, string> DataForUi = new Dictionary<string, string>{
+                {"UserName", networkInfo.GetUserName()},
                 {"SerialNumber", computerInfo.GetSerialNumber()},
                 {"ActiveNumber", computerInfo.GetDeviceName()},
                 {"Model", computerInfo.GetModel()},
                 {"Processor", computerInfo.GetProcessorInfo()},
                 {"ProcessorSpeed", computerInfo.GetProcessorSpeed()},
                 {"RAM", computerInfo.GetRamSize().ToString()},
-                {"DiskInfo", disks.First()}
+                {"DiskInfo", disks.First()},
+                {"OperativeSystem", computerInfo.GetOperatingSystem()},
+                {"Ip", networkInfo.GetIpAddress()},
+                {"OfficeVersion", computerInfo.GetOfficeVersion()}
             };
             return DataForUi;
         }
