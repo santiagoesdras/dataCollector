@@ -76,7 +76,6 @@ namespace dataCollector.ui
             this.SerialNumber.Size = new System.Drawing.Size(275, 20);
             this.SerialNumber.TabIndex = 1;
             this.SerialNumber.Text = "text1";
-            this.SerialNumber.TextChanged += TextBox_TextChanged;
             // 
             // RAM
             // 
@@ -85,7 +84,6 @@ namespace dataCollector.ui
             this.RAM.Size = new System.Drawing.Size(275, 20);
             this.RAM.TabIndex = 6;
             this.RAM.Text = "text6";
-            this.RAM.TextChanged += TextBox_TextChanged;
             // 
             // DiskInfo
             // 
@@ -93,7 +91,6 @@ namespace dataCollector.ui
             this.DiskInfo.Name = "DiskInfo";
             this.DiskInfo.Size = new System.Drawing.Size(275, 20);
             this.DiskInfo.TabIndex = 7;
-            this.DiskInfo.TextChanged += TextBox_TextChanged;
             // 
             // OperativeSystem
             // 
@@ -101,7 +98,6 @@ namespace dataCollector.ui
             this.OperativeSystem.Name = "OperativeSystem";
             this.OperativeSystem.Size = new System.Drawing.Size(275, 20);
             this.OperativeSystem.TabIndex = 8;
-            this.OperativeSystem.TextChanged += TextBox_TextChanged;
             // 
             // Ip
             // 
@@ -109,7 +105,6 @@ namespace dataCollector.ui
             this.Ip.Name = "Ip";
             this.Ip.Size = new System.Drawing.Size(275, 20);
             this.Ip.TabIndex = 9;
-            this.Ip.TextChanged += TextBox_TextChanged;
             // 
             // OfficeVersion
             // 
@@ -117,7 +112,6 @@ namespace dataCollector.ui
             this.OfficeVersion.Name = "OfficeVersion";
             this.OfficeVersion.Size = new System.Drawing.Size(275, 20);
             this.OfficeVersion.TabIndex = 10;
-            this.OfficeVersion.TextChanged += TextBox_TextChanged;
             // 
             // ActiveNumber
             // 
@@ -125,7 +119,6 @@ namespace dataCollector.ui
             this.ActiveNumber.Name = "ActiveNumber";
             this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
             this.ActiveNumber.TabIndex = 11;
-            this.ActiveNumber.TextChanged += TextBox_TextChanged;
             // 
             // Model
             // 
@@ -133,7 +126,6 @@ namespace dataCollector.ui
             this.Model.Name = "Model";
             this.Model.Size = new System.Drawing.Size(275, 20);
             this.Model.TabIndex = 12;
-            this.Model.TextChanged += TextBox_TextChanged;
             // 
             // Processor
             // 
@@ -141,7 +133,6 @@ namespace dataCollector.ui
             this.Processor.Name = "Processor";
             this.Processor.Size = new System.Drawing.Size(275, 20);
             this.Processor.TabIndex = 13;
-            this.Processor.TextChanged += TextBox_TextChanged;
             // 
             // ProcessorSpeed
             // 
@@ -149,7 +140,6 @@ namespace dataCollector.ui
             this.ProcessorSpeed.Name = "ProcessorSpeed";
             this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
             this.ProcessorSpeed.TabIndex = 14;
-            this.ProcessorSpeed.Text += TextBox_TextChanged;
             // 
             // UpsInfoCheckBox
             // 
@@ -280,7 +270,20 @@ namespace dataCollector.ui
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(275, 20);
             this.textBox16.TabIndex = 28;
-            this.textBox16.Text = "TextBox16";
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(330, 388);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(275, 20);
+            this.textBox17.TabIndex = 27;
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(26, 388);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(275, 20);
+            this.textBox18.TabIndex = 26;
             // 
             // label3
             // 

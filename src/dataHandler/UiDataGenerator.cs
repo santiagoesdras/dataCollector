@@ -6,6 +6,7 @@ namespace dataCollector.dataHandler{
                             disks.Add(disk.Name.ToString() + " " + (disk.TotalSize/(1024 * 1024 * 1024)).ToString() + "GB");
                         }
             Dictionary<string, string> DataForUi = new Dictionary<string, string>{
+                {"UserName", networkInfo.GetUserName()},
                 {"SerialNumber", computerInfo.GetSerialNumber()},
                 {"ActiveNumber", computerInfo.GetDeviceName()},
                 {"Model", computerInfo.GetModel()},
