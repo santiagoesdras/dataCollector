@@ -41,20 +41,20 @@ namespace dataCollector.ui
             this.Model = new System.Windows.Forms.TextBox();
             this.Processor = new System.Windows.Forms.TextBox();
             this.ProcessorSpeed = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.UpsInfoCheckBox = new System.Windows.Forms.CheckBox();
+            this.MonitorInfoCheckBox = new System.Windows.Forms.CheckBox();
+            this.CpuInfoCheckBox = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.UpsBrand = new System.Windows.Forms.TextBox();
+            this.UpsSerialNumber = new System.Windows.Forms.TextBox();
+            this.UpsModel = new System.Windows.Forms.TextBox();
+            this.UpsActiveNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.MonitorActiveNumber = new System.Windows.Forms.TextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.MonitorSerialNumber = new System.Windows.Forms.TextBox();
+            this.MonitorBrand = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.UserName = new System.Windows.Forms.TextBox();
             // 
@@ -76,6 +76,7 @@ namespace dataCollector.ui
             this.SerialNumber.Size = new System.Drawing.Size(275, 20);
             this.SerialNumber.TabIndex = 1;
             this.SerialNumber.Text = "text1";
+            this.SerialNumber.TextChanged += TextBox_TextChanged;
             // 
             // RAM
             // 
@@ -84,6 +85,7 @@ namespace dataCollector.ui
             this.RAM.Size = new System.Drawing.Size(275, 20);
             this.RAM.TabIndex = 6;
             this.RAM.Text = "text6";
+            this.RAM.TextChanged += TextBox_TextChanged;
             // 
             // DiskInfo
             // 
@@ -91,6 +93,7 @@ namespace dataCollector.ui
             this.DiskInfo.Name = "DiskInfo";
             this.DiskInfo.Size = new System.Drawing.Size(275, 20);
             this.DiskInfo.TabIndex = 7;
+            this.DiskInfo.TextChanged += TextBox_TextChanged;
             // 
             // OperativeSystem
             // 
@@ -98,6 +101,7 @@ namespace dataCollector.ui
             this.OperativeSystem.Name = "OperativeSystem";
             this.OperativeSystem.Size = new System.Drawing.Size(275, 20);
             this.OperativeSystem.TabIndex = 8;
+            this.OperativeSystem.TextChanged += TextBox_TextChanged;
             // 
             // Ip
             // 
@@ -105,6 +109,7 @@ namespace dataCollector.ui
             this.Ip.Name = "Ip";
             this.Ip.Size = new System.Drawing.Size(275, 20);
             this.Ip.TabIndex = 9;
+            this.Ip.TextChanged += TextBox_TextChanged;
             // 
             // OfficeVersion
             // 
@@ -112,6 +117,7 @@ namespace dataCollector.ui
             this.OfficeVersion.Name = "OfficeVersion";
             this.OfficeVersion.Size = new System.Drawing.Size(275, 20);
             this.OfficeVersion.TabIndex = 10;
+            this.OfficeVersion.TextChanged += TextBox_TextChanged;
             // 
             // ActiveNumber
             // 
@@ -119,6 +125,7 @@ namespace dataCollector.ui
             this.ActiveNumber.Name = "ActiveNumber";
             this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
             this.ActiveNumber.TabIndex = 11;
+            this.ActiveNumber.TextChanged += TextBox_TextChanged;
             // 
             // Model
             // 
@@ -126,6 +133,7 @@ namespace dataCollector.ui
             this.Model.Name = "Model";
             this.Model.Size = new System.Drawing.Size(275, 20);
             this.Model.TabIndex = 12;
+            this.Model.TextChanged += TextBox_TextChanged;
             // 
             // Processor
             // 
@@ -133,6 +141,7 @@ namespace dataCollector.ui
             this.Processor.Name = "Processor";
             this.Processor.Size = new System.Drawing.Size(275, 20);
             this.Processor.TabIndex = 13;
+            this.Processor.TextChanged += TextBox_TextChanged;
             // 
             // ProcessorSpeed
             // 
@@ -140,36 +149,40 @@ namespace dataCollector.ui
             this.ProcessorSpeed.Name = "ProcessorSpeed";
             this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
             this.ProcessorSpeed.TabIndex = 14;
+            this.ProcessorSpeed.Text += TextBox_TextChanged;
             // 
-            // checkBox1
+            // UpsInfoCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 472);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(159, 17);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Almacenar Informacion UPS";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.UpsInfoCheckBox.AutoSize = true;
+            this.UpsInfoCheckBox.Location = new System.Drawing.Point(26, 472);
+            this.UpsInfoCheckBox.Name = "UpsInfoCheckBox";
+            this.UpsInfoCheckBox.Size = new System.Drawing.Size(159, 17);
+            this.UpsInfoCheckBox.TabIndex = 15;
+            this.UpsInfoCheckBox.Text = "Almacenar Informacion UPS";
+            this.UpsInfoCheckBox.UseVisualStyleBackColor = true;
+            this.UpsInfoCheckBox.AutoCheck = false;
             // 
-            // checkBox2
+            // MonitorInfoCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(26, 511);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(172, 17);
-            this.checkBox2.TabIndex = 16;
-            this.checkBox2.Text = "Almacenar Informacion Monitor";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.MonitorInfoCheckBox.AutoSize = true;
+            this.MonitorInfoCheckBox.Location = new System.Drawing.Point(26, 511);
+            this.MonitorInfoCheckBox.Name = "MonitorInfoCheckBox";
+            this.MonitorInfoCheckBox.Size = new System.Drawing.Size(172, 17);
+            this.MonitorInfoCheckBox.TabIndex = 16;
+            this.MonitorInfoCheckBox.Text = "Almacenar Informacion Monitor";
+            this.MonitorInfoCheckBox.UseVisualStyleBackColor = true;
+            this.MonitorInfoCheckBox.AutoCheck = false;
             // 
-            // checkBox3
+            // CpuInfoCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(206, 511);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(159, 17);
-            this.checkBox3.TabIndex = 17;
-            this.checkBox3.Text = "Almacenar Informacion CPU";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.CpuInfoCheckBox.AutoSize = true;
+            this.CpuInfoCheckBox.Location = new System.Drawing.Point(206, 511);
+            this.CpuInfoCheckBox.Name = "CpuInfoCheckBox";
+            this.CpuInfoCheckBox.Size = new System.Drawing.Size(159, 17);
+            this.CpuInfoCheckBox.TabIndex = 17;
+            this.CpuInfoCheckBox.Text = "Almacenar Informacion CPU";
+            this.CpuInfoCheckBox.UseVisualStyleBackColor = true;
+            this.CpuInfoCheckBox.AutoCheck = false;
             // 
             // button1
             // 
@@ -191,33 +204,41 @@ namespace dataCollector.ui
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox11
+            // UpsActiveNumber
             // 
-            this.textBox11.Location = new System.Drawing.Point(26, 315);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(275, 20);
-            this.textBox11.TabIndex = 24;
+            this.UpsActiveNumber.Location = new System.Drawing.Point(26, 278);
+            this.UpsActiveNumber.Name = "UpsActiveNumber";
+            this.UpsActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.UpsActiveNumber.TabIndex = 21;
+            this.UpsActiveNumber.TextChanged += TextBox_TextChanged;
+            this.UpsActiveNumber.Text = "UpsActiveNumber";
             // 
-            // textBox12
+            // UpsBrand
             // 
-            this.textBox12.Location = new System.Drawing.Point(330, 315);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(275, 20);
-            this.textBox12.TabIndex = 23;
+            this.UpsBrand.Location = new System.Drawing.Point(26, 315);
+            this.UpsBrand.Name = "UpsBrand";
+            this.UpsBrand.Size = new System.Drawing.Size(275, 20);
+            this.UpsBrand.TabIndex = 22;
+            this.UpsBrand.TextChanged += TextBox_TextChanged;
+            this.UpsBrand.Text = "UpsBrand";
             // 
-            // textBox13
+            // UpsModel
             // 
-            this.textBox13.Location = new System.Drawing.Point(330, 278);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(275, 20);
-            this.textBox13.TabIndex = 22;
+            this.UpsModel.Location = new System.Drawing.Point(330, 278);
+            this.UpsModel.Name = "UpsModel";
+            this.UpsModel.Size = new System.Drawing.Size(275, 20);
+            this.UpsModel.TabIndex = 23;
+            this.UpsModel.TextChanged += TextBox_TextChanged;
+            this.UpsModel.Text = "UpsModel";
             // 
-            // textBox14
+            // UpsSerialNumber
             // 
-            this.textBox14.Location = new System.Drawing.Point(26, 278);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(275, 20);
-            this.textBox14.TabIndex = 21;
+            this.UpsSerialNumber.Location = new System.Drawing.Point(330, 315);
+            this.UpsSerialNumber.Name = "UpsSerialNumber";
+            this.UpsSerialNumber.Size = new System.Drawing.Size(275, 20);
+            this.UpsSerialNumber.TabIndex = 24;
+            this.UpsSerialNumber.TextChanged += TextBox_TextChanged;
+            this.UpsSerialNumber.Text = "UpsSerialNumber";
             // 
             // label2
             // 
@@ -229,12 +250,29 @@ namespace dataCollector.ui
             this.label2.Text = "Informacion UPS";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox15
+            // MonitorBrand
             // 
-            this.textBox15.Location = new System.Drawing.Point(26, 425);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(275, 20);
-            this.textBox15.TabIndex = 29;
+            this.MonitorBrand.Location = new System.Drawing.Point(26, 388);
+            this.MonitorBrand.Name = "MonitorBrand";
+            this.MonitorBrand.Size = new System.Drawing.Size(275, 20);
+            this.MonitorBrand.TabIndex = 25;
+            this.MonitorBrand.Text = "MonitorBrand";
+            // 
+            // MonitorActiveNumber
+            // 
+            this.MonitorActiveNumber.Location = new System.Drawing.Point(26, 425);
+            this.MonitorActiveNumber.Name = "MonitorActiveNumber";
+            this.MonitorActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.MonitorActiveNumber.TabIndex = 26;
+            this.MonitorActiveNumber.Text = "MonitorActiveNumber";
+            // 
+            // MonitorSerialNumber
+            // 
+            this.MonitorSerialNumber.Location = new System.Drawing.Point(330, 388);
+            this.MonitorSerialNumber.Name = "MonitorSerialNumber";
+            this.MonitorSerialNumber.Size = new System.Drawing.Size(275, 20);
+            this.MonitorSerialNumber.TabIndex = 27;
+            this.MonitorSerialNumber.Text = "MonitorSerialNumber";
             // 
             // textBox16
             // 
@@ -242,20 +280,7 @@ namespace dataCollector.ui
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(275, 20);
             this.textBox16.TabIndex = 28;
-            // 
-            // textBox17
-            // 
-            this.textBox17.Location = new System.Drawing.Point(330, 388);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(275, 20);
-            this.textBox17.TabIndex = 27;
-            // 
-            // textBox18
-            // 
-            this.textBox18.Location = new System.Drawing.Point(26, 388);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(275, 20);
-            this.textBox18.TabIndex = 26;
+            this.textBox16.Text = "TextBox16";
             // 
             // label3
             // 
@@ -273,25 +298,24 @@ namespace dataCollector.ui
             this.UserName.Name = "UserName";
             this.UserName.Size = new System.Drawing.Size(172, 20);
             this.UserName.TabIndex = 30;
-
+            this.UserName.TextChanged += TextBox_TextChanged;
 
             // Añadir los objetos al formulario
             this.Controls.Add(this.UserName);
-            this.Controls.Add(this.textBox15);
-            this.Controls.Add(this.textBox16);
-            this.Controls.Add(this.textBox17);
-            this.Controls.Add(this.textBox18);
+            this.Controls.Add(this.MonitorBrand);
+            this.Controls.Add(this.MonitorActiveNumber);
+            this.Controls.Add(this.MonitorSerialNumber);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.textBox12);
-            this.Controls.Add(this.textBox13);
-            this.Controls.Add(this.textBox14);
+            this.Controls.Add(this.UpsActiveNumber);
+            this.Controls.Add(this.UpsBrand);
+            this.Controls.Add(this.UpsSerialNumber);
+            this.Controls.Add(this.UpsModel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.checkBox3);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.CpuInfoCheckBox);
+            this.Controls.Add(this.MonitorInfoCheckBox);
+            this.Controls.Add(this.UpsInfoCheckBox);
             this.Controls.Add(this.ProcessorSpeed);
             this.Controls.Add(this.Processor);
             this.Controls.Add(this.Model);
@@ -303,6 +327,7 @@ namespace dataCollector.ui
             this.Controls.Add(this.RAM);
             this.Controls.Add(this.SerialNumber);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox16);
             this.Name = "Form1";
             this.Text = "DataCollector";
             
@@ -337,13 +362,33 @@ namespace dataCollector.ui
             this.SuspendLayout();
 
             foreach(Control control in this.Controls){
-                if(control is TextBox textBoxTemp){
-                    if(PcDataBoxes.TryGetValue(textBoxTemp.Name, out string newTextBox)){
-                        textBoxTemp.Text = newTextBox;
+                if(control is TextBox textBoxUpsModel){
+                    if(PcDataBoxes.TryGetValue(textBoxUpsModel.Name, out string newTextBox)){
+                        textBoxUpsModel.Text = newTextBox;
                     }
                 }
             }
             this.ResumeLayout(false);
+        }
+        private void TextBox_TextChanged(object sender, EventArgs e){
+            CpuInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(SerialNumber.Text) &&
+                                !string.IsNullOrWhiteSpace(ActiveNumber.Text) &&
+                                !string.IsNullOrWhiteSpace(Model.Text) &&
+                                !string.IsNullOrWhiteSpace(Processor.Text) &&
+                                !string.IsNullOrWhiteSpace(ProcessorSpeed.Text) &&
+                                !string.IsNullOrWhiteSpace(RAM.Text) &&
+                                !string.IsNullOrWhiteSpace(DiskInfo.Text) &&
+                                !string.IsNullOrWhiteSpace(OperativeSystem.Text) &&
+                                !string.IsNullOrWhiteSpace(Ip.Text) &&
+                                !string.IsNullOrWhiteSpace(OfficeVersion.Text) &&
+                                !string.IsNullOrWhiteSpace(UserName.Text);
+
+            UpsInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(UpsActiveNumber.Text) &&
+                                !string.IsNullOrWhiteSpace(UpsBrand.Text) &&
+                                !string.IsNullOrWhiteSpace(UpsSerialNumber.Text) &&
+                                !string.IsNullOrWhiteSpace(UpsModel.Text);
+
+            //MonitorInfoCheckBox = !string.IsNullOrWhiteSpace();
         }
 
         //Declaracion de TextBoxes
@@ -357,20 +402,20 @@ namespace dataCollector.ui
         private System.Windows.Forms.TextBox OperativeSystem;
         private System.Windows.Forms.TextBox Ip;
         private System.Windows.Forms.TextBox OfficeVersion;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.TextBox UpsActiveNumber; //debe ser el 11
+        private System.Windows.Forms.TextBox UpsBrand; //debe ser el 12
+        private System.Windows.Forms.TextBox UpsSerialNumber; //debe ser el 13
+        private System.Windows.Forms.TextBox UpsModel; //debe ser el 14
+        private System.Windows.Forms.TextBox MonitorBrand; //  debe ser el 15
+        private System.Windows.Forms.TextBox MonitorActiveNumber; //  deber ser el 16
+        private System.Windows.Forms.TextBox MonitorSerialNumber; //  debe ser el 17
+        private System.Windows.Forms.TextBox textBox16; //  deber ser el 18
         private System.Windows.Forms.TextBox UserName;
 
         //Declaracion de CheckBoxes
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox CpuInfoCheckBox;
+        private System.Windows.Forms.CheckBox UpsInfoCheckBox;
+        private System.Windows.Forms.CheckBox MonitorInfoCheckBox;
 
         //Declaracion de Buttons
         private System.Windows.Forms.Button button1;

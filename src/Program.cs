@@ -11,7 +11,6 @@
 using dataCollector;
 using dataCollector.dataHandler;
 using dataCollector.ui;
-using dataCollector.dataHandler;
     class Program{
         private static string format = "csv";
         public static string globalUserName = "";

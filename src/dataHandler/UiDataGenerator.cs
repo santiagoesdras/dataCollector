@@ -12,7 +12,10 @@ namespace dataCollector.dataHandler{
                 {"Processor", computerInfo.GetProcessorInfo()},
                 {"ProcessorSpeed", computerInfo.GetProcessorSpeed()},
                 {"RAM", computerInfo.GetRamSize().ToString()},
-                {"DiskInfo", disks.First()}
+                {"DiskInfo", disks.First()},
+                {"OperativeSystem", computerInfo.GetOperatingSystem()},
+                {"Ip", networkInfo.GetIpAddress()},
+                {"OfficeVersion", computerInfo.GetOfficeVersion()}
             };
             return DataForUi;
         }
