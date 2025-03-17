@@ -75,7 +75,7 @@ namespace dataCollector.ui
             this.SerialNumber.Name = "SerialNumber";
             this.SerialNumber.Size = new System.Drawing.Size(275, 20);
             this.SerialNumber.TabIndex = 1;
-            this.SerialNumber.Text = "text1";
+            this.SerialNumber.PlaceholderText = "SerialNumber";
             // 
             // RAM
             // 
@@ -83,7 +83,7 @@ namespace dataCollector.ui
             this.RAM.Name = "RAM";
             this.RAM.Size = new System.Drawing.Size(275, 20);
             this.RAM.TabIndex = 6;
-            this.RAM.Text = "text6";
+            this.RAM.PlaceholderText = "RAM";
             // 
             // DiskInfo
             // 
@@ -91,6 +91,7 @@ namespace dataCollector.ui
             this.DiskInfo.Name = "DiskInfo";
             this.DiskInfo.Size = new System.Drawing.Size(275, 20);
             this.DiskInfo.TabIndex = 7;
+            this.DiskInfo.PlaceholderText = "DiskInfo";
             // 
             // OperativeSystem
             // 
@@ -98,6 +99,7 @@ namespace dataCollector.ui
             this.OperativeSystem.Name = "OperativeSystem";
             this.OperativeSystem.Size = new System.Drawing.Size(275, 20);
             this.OperativeSystem.TabIndex = 8;
+            this.OperativeSystem.PlaceholderText = "OperativeSystem";
             // 
             // Ip
             // 
@@ -105,6 +107,7 @@ namespace dataCollector.ui
             this.Ip.Name = "Ip";
             this.Ip.Size = new System.Drawing.Size(275, 20);
             this.Ip.TabIndex = 9;
+            this.Ip.PlaceholderText = "Ip";
             // 
             // OfficeVersion
             // 
@@ -112,6 +115,7 @@ namespace dataCollector.ui
             this.OfficeVersion.Name = "OfficeVersion";
             this.OfficeVersion.Size = new System.Drawing.Size(275, 20);
             this.OfficeVersion.TabIndex = 10;
+            this.OfficeVersion.PlaceholderText = "OfficeVersion";
             // 
             // ActiveNumber
             // 
@@ -119,6 +123,7 @@ namespace dataCollector.ui
             this.ActiveNumber.Name = "ActiveNumber";
             this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
             this.ActiveNumber.TabIndex = 11;
+            this.ActiveNumber.PlaceholderText = "ActiveNumber";
             // 
             // Model
             // 
@@ -126,6 +131,7 @@ namespace dataCollector.ui
             this.Model.Name = "Model";
             this.Model.Size = new System.Drawing.Size(275, 20);
             this.Model.TabIndex = 12;
+            this.Model.PlaceholderText = "Model";
             // 
             // Processor
             // 
@@ -133,6 +139,7 @@ namespace dataCollector.ui
             this.Processor.Name = "Processor";
             this.Processor.Size = new System.Drawing.Size(275, 20);
             this.Processor.TabIndex = 13;
+            this.Processor.PlaceholderText = "Processor";
             // 
             // ProcessorSpeed
             // 
@@ -140,6 +147,7 @@ namespace dataCollector.ui
             this.ProcessorSpeed.Name = "ProcessorSpeed";
             this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
             this.ProcessorSpeed.TabIndex = 14;
+            this.ProcessorSpeed.PlaceholderText = "ProcessorSpeed";
             // 
             // checkBox1
             // 
@@ -249,6 +257,7 @@ namespace dataCollector.ui
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(275, 20);
             this.textBox17.TabIndex = 27;
+            this.textBox17.PlaceholderText = "TextBox17";
             // 
             // textBox18
             // 
