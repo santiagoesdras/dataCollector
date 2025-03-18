@@ -7,10 +7,42 @@ using Microsoft.VisualBasic;
 
 namespace dataCollector{
     public class CsvHandler{
+        public ComputerInfo computer { get; set; }
+        public NetworkInfo network { get; set; }
+        private static string format = "csv";
+
         private static string[][] datas = {["Nombre de Usuario", "Serie", "Activo", "Modelo", "Procesador", "Velocidad (Ghz)", "Memoria (MB)",
          "Disco", "Sistema Operativo", "Ip", "Office"], ["Nombre de Usuario", "Marca", "Activo", "Serie"], ["Nombre de usuario", "Activo", "Marca", "Modelo", "Serie"]};
         public static List<string> ActiveInfo = new List<string>();
-        public void dataWritter(string[] CsvStrings, int activeType){
+        public CsvHandler(ref NetworkInfo networkInfo, ref ComputerInfo computerInfo){
+            computer = computerInfo;
+            network = networkInfo;
+        }
+        public void logger(){
+            if(format == "json"){
+                //jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
+            }else if(format == "csv"){
+                    List<string> disks = new List<string>();
+                    foreach(DiskInfo disk in computer.GetDisksInfo()){
+                        disks.Add(disk.Name.ToString() + " " + (disk.TotalSize/(1024 * 1024 * 1024)).ToString() + "GB");
+                    }
+                string[] CsvStrings = {
+                    network.GetUserName(),
+                    computer.GetSerialNumber(), 
+                    computer.GetDeviceName(),
+                    computer.GetManufacturer() + computer.GetModel(),
+                    computer.GetProcessorInfo(),
+                    (float.Parse(computer.GetProcessorSpeed())/1000).ToString(),
+                    computer.GetRamSize().ToString(),
+                    disks.First(),
+                    computer.GetOperatingSystem(),
+                    network.GetIpAddress(),
+                    computer.GetOfficeVersion()
+                };
+                dataWritter(CsvStrings, 0);
+            }
+        }
+        public static void dataWritter(string[] CsvStrings, int activeType){
             ActiveInfo.Clear();
             string[] filepath = {"CPU.csv", "Monitor.csv", "UPS.csv"};
             if(writeHeader(filepath[activeType], activeType)){
@@ -28,7 +60,7 @@ namespace dataCollector{
                 }
             }
         }
-        public bool writeHeader(string filepath, int activeType){
+        public static bool writeHeader(string filepath, int activeType){
             bool fileExists = File.Exists(filepath);
             bool fileIsEmpty = fileExists && new FileInfo(filepath).Length == 0;
             if(!fileExists || fileIsEmpty){
@@ -45,7 +77,7 @@ namespace dataCollector{
                 return true;
             }
         }
-        public void insertData(string[] CsvStrings){
+        public static void insertData(string[] CsvStrings){
             foreach(string data in CsvStrings){
                 ActiveInfo.Add(data);
             }

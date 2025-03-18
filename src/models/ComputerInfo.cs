@@ -89,8 +89,8 @@ namespace dataCollector{
         public string GetSerialNumber(){
             return SerialNumber;
         }
-        public int GetRamSize(){
-            return RamSize;
+        public string GetRamSize(){
+            return RamSize.ToString() + " MB";
         }
         public List<DiskInfo> GetDisksInfo(){
             return Disks;

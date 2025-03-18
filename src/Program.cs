@@ -12,7 +12,6 @@ using dataCollector;
 using dataCollector.dataHandler;
 using dataCollector.ui;
     class Program{
-        private static string format = "csv";
         public static string globalUserName = "";
         static void Main(string[] args){
             CpuInfo();
@@ -23,9 +22,9 @@ using dataCollector.ui;
             }else if(type == "CPU"){
                 CpuInfo();
             }else if(type == "Monitor"){
-                ScreenInfo();
+                //ScreenInfo();
             }else if(type == "UPS"){
-                UpsInfo();
+                //UpsInfo();
             }
         }
         public static void CpuInfo(){
@@ -44,12 +43,11 @@ using dataCollector.ui;
             Application.SetCompatibleTextRenderingDefault(false);
             Form1 form1 = new Form1(ref computer, ref network);
             Application.Run(form1);
-            Console.WriteLine(network.UserName);
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
         }
-        public static void ScreenInfo(){
+/*         public static void ScreenInfo(){
             MonitorInfo monitorInfo = new MonitorInfo();
             string[] CsvStrings = {
                 globalUserName,
@@ -71,29 +69,6 @@ using dataCollector.ui;
             };
             CsvHandler csvHandler = new CsvHandler();
             csvHandler.dataWritter(CsvStrings, 2);
-        }
-        public static void logger(ref NetworkInfo network, ref ComputerInfo computer, ref JsonManager jsonManager, ref CsvHandler csvHandler, ref string json){
-                if(format == "json"){
-                    jsonManager.SaveJsonToFile($"{computer.GetDeviceName()}");
-                }else if(format == "csv"){
-                        List<string> disks = new List<string>();
-                        foreach(DiskInfo disk in computer.GetDisksInfo()){
-                            disks.Add(disk.Name.ToString() + " " + (disk.TotalSize/(1024 * 1024 * 1024)).ToString() + "GB");
-                        }
-                    string[] CsvStrings = {
-                        network.GetUserName(),
-                        computer.GetSerialNumber(), 
-                        computer.GetDeviceName(),
-                        computer.GetManufacturer() + computer.GetModel(),
-                        computer.GetProcessorInfo(),
-                        (float.Parse(computer.GetProcessorSpeed())/1000).ToString(),
-                        computer.GetRamSize().ToString(),
-                        disks.First(),
-                        computer.GetOperatingSystem(),
-                        network.GetIpAddress(),
-                        computer.GetOfficeVersion()
-                    };
-                    csvHandler.dataWritter(CsvStrings, 0);
-                }
-        }
+        } */
+
     }

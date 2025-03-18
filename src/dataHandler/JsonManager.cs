@@ -11,7 +11,8 @@ namespace dataCollector{
         public string Fabricante { get; set; }
         public string Modelo { get; set; }
         public string NumeroDeSerie { get; set; }
-        public int Ram { get; set; }
+        public string Ram { get; set; }
+        public string varPruebas { get; set; } = "";
         public string Procesador { get; set; }
         public List<DiskInfo> Discos { get; set; }
         public string MacAddress { get; set; }
@@ -31,7 +32,7 @@ namespace dataCollector{
                 Fabricante = computer.GetManufacturer(),
                 Modelo = computer.GetModel(),
                 NumeroDeSerie = computer.GetSerialNumber(),
-                Ram = computer.GetRamSize(),
+                Ram = computer.GetRamSize().ToString(),
                 Procesador = computer.GetProcessorInfo(),
                 Discos = DiskInfo.GetDiskInfo(),
                 MacAddress = network.GetMacAddress(),

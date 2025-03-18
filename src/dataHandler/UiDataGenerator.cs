@@ -33,6 +33,7 @@ namespace dataCollector.dataHandler{
                 ActiveNumber = computerInfo.GetDeviceName(),
                 Model = computerInfo.GetModel(),
                 Processor = computerInfo.GetProcessorInfo(),
+                ProcessorSpeed = computerInfo.GetProcessorSpeed(),
                 Ram = computerInfo.GetRamSize().ToString(),
                 DiskInfo = disks.First(),
                 OperativeSystem = computerInfo.GetOperatingSystem(),

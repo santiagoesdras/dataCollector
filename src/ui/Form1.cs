@@ -9,17 +9,33 @@ namespace dataCollector.ui
         private System.ComponentModel.IContainer components = null;
         private Dictionary<string, string> _PcDataBoxes;
         private UiDataModel dataModel;
-
+        private UiDataModel.UiPcDataModel pcDataModel;
+        UpdateData updateData;
+        CsvHandler csvHandler;
 
         public Form1(ref ComputerInfo computerInfo, ref NetworkInfo networkInfo)
         {
             InitializeComponent();
             UiDataModel uiDataModel = new UiDataModel();
             dataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
-            
-            UserName.DataBindings.Add("Text", dataModel, "UserName", false, DataSourceUpdateMode.OnPropertyChanged);
+            pcDataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
+            InitializeDataBindings();
+            updateData = new UpdateData(ref computerInfo, ref networkInfo, ref dataModel, ref pcDataModel);
+            csvHandler = new CsvHandler(ref networkInfo, ref computerInfo);
         }
-
+        private void InitializeDataBindings(){
+            UserName.DataBindings.Add("Text", dataModel, "UserName", false, DataSourceUpdateMode.OnPropertyChanged);
+            SerialNumber.DataBindings.Add("Text", pcDataModel, "SerialNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            ActiveNumber.DataBindings.Add("Text", pcDataModel, "ActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            Model.DataBindings.Add("Text", dataModel, "Model", false, DataSourceUpdateMode.OnPropertyChanged);
+            Processor.DataBindings.Add("Text", dataModel, "Processor", false, DataSourceUpdateMode.OnPropertyChanged);
+            ProcessorSpeed.DataBindings.Add("Text", dataModel, "ProcessorSpeed", false, DataSourceUpdateMode.OnPropertyChanged);
+            RAM.DataBindings.Add("Text", dataModel, "RAM", false, DataSourceUpdateMode.OnPropertyChanged);
+            DiskInfo.DataBindings.Add("Text", dataModel, "DiskInfo", false, DataSourceUpdateMode.OnPropertyChanged);
+            OperativeSystem.DataBindings.Add("Text", dataModel, "OperativeSystem", false, DataSourceUpdateMode.OnPropertyChanged);
+            Ip.DataBindings.Add("Text", dataModel, "Ip", false, DataSourceUpdateMode.OnPropertyChanged);
+            OfficeVersion.DataBindings.Add("Text", dataModel, "OfficeVersion", false, DataSourceUpdateMode.OnPropertyChanged);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -352,8 +368,9 @@ namespace dataCollector.ui
 
         private void button1_Click(object sender, EventArgs e)
         {
+            updateData.updatePcData();
+            csvHandler.logger();
             MessageBox.Show("Guardando información...");
-            Console.WriteLine(dataModel.UserName);
             this.Close();
         }
 
