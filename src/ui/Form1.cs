@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using dataCollector.dataHandler;
 
 namespace dataCollector.ui
 {
@@ -7,13 +8,16 @@ namespace dataCollector.ui
     {
         private System.ComponentModel.IContainer components = null;
         private Dictionary<string, string> _PcDataBoxes;
+        private UiDataModel dataModel;
 
 
-        public Form1(Dictionary<string, string> PcDataBoxes)
+        public Form1(ref ComputerInfo computerInfo, ref NetworkInfo networkInfo)
         {
             InitializeComponent();
-            this.Shown += Form1_Shown;
-            _PcDataBoxes = PcDataBoxes;
+            UiDataModel uiDataModel = new UiDataModel();
+            dataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
+            
+            UserName.DataBindings.Add("Text", dataModel, "UserName", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         protected override void Dispose(bool disposing)
@@ -52,7 +56,6 @@ namespace dataCollector.ui
             this.UpsActiveNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.MonitorActiveNumber = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
             this.MonitorSerialNumber = new System.Windows.Forms.TextBox();
             this.MonitorBrand = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -75,7 +78,44 @@ namespace dataCollector.ui
             this.SerialNumber.Name = "SerialNumber";
             this.SerialNumber.Size = new System.Drawing.Size(275, 20);
             this.SerialNumber.TabIndex = 1;
-            this.SerialNumber.Text = "text1";
+            this.SerialNumber.PlaceholderText = "SerialNumber";            
+            this.SerialNumber.TextChanged += TextBox_TextChanged;
+            // 
+            // ActiveNumber
+            // 
+            this.ActiveNumber.Location = new System.Drawing.Point(26, 93);
+            this.ActiveNumber.Name = "ActiveNumber";
+            this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.ActiveNumber.TabIndex = 2;
+            this.ActiveNumber.PlaceholderText = "ActiveNumber";
+            this.ActiveNumber.TextChanged += TextBox_TextChanged;
+            // 
+            // Model
+            // 
+            this.Model.Location = new System.Drawing.Point(26, 132);
+            this.Model.Name = "Model";
+            this.Model.Size = new System.Drawing.Size(275, 20);
+            this.Model.TabIndex = 3;
+            this.Model.PlaceholderText = "Model";
+            this.Model.TextChanged += TextBox_TextChanged;
+            // 
+            // Processor
+            // 
+            this.Processor.Location = new System.Drawing.Point(26, 169);
+            this.Processor.Name = "Processor";
+            this.Processor.Size = new System.Drawing.Size(275, 20);
+            this.Processor.TabIndex = 4;
+            this.Processor.PlaceholderText = "Processor";
+            this.Processor.TextChanged += TextBox_TextChanged;
+            // 
+            // ProcessorSpeed
+            // 
+            this.ProcessorSpeed.Location = new System.Drawing.Point(26, 209);
+            this.ProcessorSpeed.Name = "ProcessorSpeed";
+            this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
+            this.ProcessorSpeed.TabIndex = 5;
+            this.ProcessorSpeed.PlaceholderText = "ProcessorSpeed";
+            this.ProcessorSpeed.TextChanged += TextBox_TextChanged;
             // 
             // RAM
             // 
@@ -83,7 +123,8 @@ namespace dataCollector.ui
             this.RAM.Name = "RAM";
             this.RAM.Size = new System.Drawing.Size(275, 20);
             this.RAM.TabIndex = 6;
-            this.RAM.Text = "text6";
+            this.RAM.PlaceholderText = "RAM";
+            this.RAM.TextChanged += TextBox_TextChanged;
             // 
             // DiskInfo
             // 
@@ -91,6 +132,8 @@ namespace dataCollector.ui
             this.DiskInfo.Name = "DiskInfo";
             this.DiskInfo.Size = new System.Drawing.Size(275, 20);
             this.DiskInfo.TabIndex = 7;
+            this.DiskInfo.PlaceholderText = "DiskInfo";
+            this.DiskInfo.TextChanged += TextBox_TextChanged;
             // 
             // OperativeSystem
             // 
@@ -98,6 +141,8 @@ namespace dataCollector.ui
             this.OperativeSystem.Name = "OperativeSystem";
             this.OperativeSystem.Size = new System.Drawing.Size(275, 20);
             this.OperativeSystem.TabIndex = 8;
+            this.OperativeSystem.PlaceholderText = "OperativeSystem";
+            this.OperativeSystem.TextChanged += TextBox_TextChanged;
             // 
             // Ip
             // 
@@ -105,6 +150,8 @@ namespace dataCollector.ui
             this.Ip.Name = "Ip";
             this.Ip.Size = new System.Drawing.Size(275, 20);
             this.Ip.TabIndex = 9;
+            this.Ip.PlaceholderText = "Ip";
+            this.Ip.TextChanged += TextBox_TextChanged;
             // 
             // OfficeVersion
             // 
@@ -112,34 +159,99 @@ namespace dataCollector.ui
             this.OfficeVersion.Name = "OfficeVersion";
             this.OfficeVersion.Size = new System.Drawing.Size(275, 20);
             this.OfficeVersion.TabIndex = 10;
+            this.OfficeVersion.PlaceholderText = "OfficeVersion";
+            this.OfficeVersion.TextChanged += TextBox_TextChanged;
             // 
-            // ActiveNumber
+            // label2
             // 
-            this.ActiveNumber.Location = new System.Drawing.Point(26, 93);
-            this.ActiveNumber.Name = "ActiveNumber";
-            this.ActiveNumber.Size = new System.Drawing.Size(275, 20);
-            this.ActiveNumber.TabIndex = 11;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(278, 246);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Informacion UPS";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Model
+            // UpsActiveNumber
             // 
-            this.Model.Location = new System.Drawing.Point(26, 132);
-            this.Model.Name = "Model";
-            this.Model.Size = new System.Drawing.Size(275, 20);
-            this.Model.TabIndex = 12;
+            this.UpsActiveNumber.Location = new System.Drawing.Point(26, 278);
+            this.UpsActiveNumber.Name = "UpsActiveNumber";
+            this.UpsActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.UpsActiveNumber.TabIndex = 12;
+            this.UpsActiveNumber.PlaceholderText = "No. de Activo";
+            this.UpsActiveNumber.TextChanged += TextBox_TextChanged;
             // 
-            // Processor
+            // UpsBrand
             // 
-            this.Processor.Location = new System.Drawing.Point(26, 169);
-            this.Processor.Name = "Processor";
-            this.Processor.Size = new System.Drawing.Size(275, 20);
-            this.Processor.TabIndex = 13;
+            this.UpsBrand.Location = new System.Drawing.Point(26, 315);
+            this.UpsBrand.Name = "UpsBrand";
+            this.UpsBrand.Size = new System.Drawing.Size(275, 20);
+            this.UpsBrand.TabIndex = 13;
+            this.UpsBrand.PlaceholderText = "Marca";
+            this.UpsBrand.TextChanged += TextBox_TextChanged;
             // 
-            // ProcessorSpeed
+            // UpsModel
             // 
-            this.ProcessorSpeed.Location = new System.Drawing.Point(26, 209);
-            this.ProcessorSpeed.Name = "ProcessorSpeed";
-            this.ProcessorSpeed.Size = new System.Drawing.Size(275, 20);
-            this.ProcessorSpeed.TabIndex = 14;
+            this.UpsModel.Location = new System.Drawing.Point(330, 278);
+            this.UpsModel.Name = "UpsModel";
+            this.UpsModel.Size = new System.Drawing.Size(275, 20);
+            this.UpsModel.TabIndex = 14;
+            this.UpsModel.PlaceholderText = "Modelo";
+            this.UpsModel.TextChanged += TextBox_TextChanged;
+            // 
+            // UpsSerialNumber
+            // 
+            this.UpsSerialNumber.Location = new System.Drawing.Point(330, 315);
+            this.UpsSerialNumber.Name = "UpsSerialNumber";
+            this.UpsSerialNumber.Size = new System.Drawing.Size(275, 20);
+            this.UpsSerialNumber.TabIndex = 15;
+            this.UpsSerialNumber.PlaceholderText = "No. de serie";
+            this.UpsSerialNumber.TextChanged += TextBox_TextChanged;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(271, 356);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(100, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Informacion Monitor";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // MonitorBrand
+            // 
+            this.MonitorBrand.Location = new System.Drawing.Point(26, 388);
+            this.MonitorBrand.Name = "MonitorBrand";
+            this.MonitorBrand.Size = new System.Drawing.Size(275, 20);
+            this.MonitorBrand.TabIndex = 17;
+            this.MonitorBrand.PlaceholderText = "Marca";
+            this.MonitorBrand.TextChanged += TextBox_TextChanged;
+            // 
+            // MonitorActiveNumber
+            // 
+            this.MonitorActiveNumber.Location = new System.Drawing.Point(26, 425);
+            this.MonitorActiveNumber.Name = "MonitorActiveNumber";
+            this.MonitorActiveNumber.Size = new System.Drawing.Size(275, 20);
+            this.MonitorActiveNumber.TabIndex = 18;
+            this.MonitorActiveNumber.PlaceholderText = "No. de activo";
+            this.MonitorActiveNumber.TextChanged += TextBox_TextChanged;
+            // 
+            // MonitorSerialNumber
+            // 
+            this.MonitorSerialNumber.Location = new System.Drawing.Point(330, 388);
+            this.MonitorSerialNumber.Name = "MonitorSerialNumber";
+            this.MonitorSerialNumber.Size = new System.Drawing.Size(275, 20);
+            this.MonitorSerialNumber.TabIndex = 19;
+            this.MonitorSerialNumber.PlaceholderText = "No. de serie";
+            this.MonitorSerialNumber.TextChanged += TextBox_TextChanged;
+            // 
+            // UserName
+            // 
+            this.UserName.Location = new System.Drawing.Point(26, 21);
+            this.UserName.Name = "UserName";
+            this.UserName.Size = new System.Drawing.Size(172, 20);
+            this.UserName.TabIndex = 20;
+            this.UserName.TextChanged += TextBox_TextChanged;
             // 
             // UpsInfoCheckBox
             // 
@@ -147,7 +259,7 @@ namespace dataCollector.ui
             this.UpsInfoCheckBox.Location = new System.Drawing.Point(26, 472);
             this.UpsInfoCheckBox.Name = "UpsInfoCheckBox";
             this.UpsInfoCheckBox.Size = new System.Drawing.Size(159, 17);
-            this.UpsInfoCheckBox.TabIndex = 15;
+            this.UpsInfoCheckBox.TabIndex = 21;
             this.UpsInfoCheckBox.Text = "Almacenar Informacion UPS";
             this.UpsInfoCheckBox.UseVisualStyleBackColor = true;
             this.UpsInfoCheckBox.AutoCheck = false;
@@ -158,7 +270,7 @@ namespace dataCollector.ui
             this.MonitorInfoCheckBox.Location = new System.Drawing.Point(26, 511);
             this.MonitorInfoCheckBox.Name = "MonitorInfoCheckBox";
             this.MonitorInfoCheckBox.Size = new System.Drawing.Size(172, 17);
-            this.MonitorInfoCheckBox.TabIndex = 16;
+            this.MonitorInfoCheckBox.TabIndex = 22;
             this.MonitorInfoCheckBox.Text = "Almacenar Informacion Monitor";
             this.MonitorInfoCheckBox.UseVisualStyleBackColor = true;
             this.MonitorInfoCheckBox.AutoCheck = false;
@@ -169,139 +281,30 @@ namespace dataCollector.ui
             this.CpuInfoCheckBox.Location = new System.Drawing.Point(206, 511);
             this.CpuInfoCheckBox.Name = "CpuInfoCheckBox";
             this.CpuInfoCheckBox.Size = new System.Drawing.Size(159, 17);
-            this.CpuInfoCheckBox.TabIndex = 17;
+            this.CpuInfoCheckBox.TabIndex = 23;
             this.CpuInfoCheckBox.Text = "Almacenar Informacion CPU";
             this.CpuInfoCheckBox.UseVisualStyleBackColor = true;
             this.CpuInfoCheckBox.AutoCheck = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(521, 506);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 32);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Guardar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(418, 506);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(97, 32);
-            this.button2.TabIndex = 19;
+            this.button2.TabIndex = 24;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // UpsActiveNumber
+            // button1
             // 
-            this.UpsActiveNumber.Location = new System.Drawing.Point(26, 278);
-            this.UpsActiveNumber.Name = "UpsActiveNumber";
-            this.UpsActiveNumber.Size = new System.Drawing.Size(275, 20);
-            this.UpsActiveNumber.TabIndex = 21;
-            this.UpsActiveNumber.TextChanged += TextBox_TextChanged;
-            this.UpsActiveNumber.Text = "UpsActiveNumber";
-            // 
-            // UpsBrand
-            // 
-            this.UpsBrand.Location = new System.Drawing.Point(26, 315);
-            this.UpsBrand.Name = "UpsBrand";
-            this.UpsBrand.Size = new System.Drawing.Size(275, 20);
-            this.UpsBrand.TabIndex = 22;
-            this.UpsBrand.TextChanged += TextBox_TextChanged;
-            this.UpsBrand.Text = "UpsBrand";
-            // 
-            // UpsModel
-            // 
-            this.UpsModel.Location = new System.Drawing.Point(330, 278);
-            this.UpsModel.Name = "UpsModel";
-            this.UpsModel.Size = new System.Drawing.Size(275, 20);
-            this.UpsModel.TabIndex = 23;
-            this.UpsModel.TextChanged += TextBox_TextChanged;
-            this.UpsModel.Text = "UpsModel";
-            // 
-            // UpsSerialNumber
-            // 
-            this.UpsSerialNumber.Location = new System.Drawing.Point(330, 315);
-            this.UpsSerialNumber.Name = "UpsSerialNumber";
-            this.UpsSerialNumber.Size = new System.Drawing.Size(275, 20);
-            this.UpsSerialNumber.TabIndex = 24;
-            this.UpsSerialNumber.TextChanged += TextBox_TextChanged;
-            this.UpsSerialNumber.Text = "UpsSerialNumber";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(278, 246);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 13);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Informacion UPS";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // MonitorBrand
-            // 
-            this.MonitorBrand.Location = new System.Drawing.Point(26, 388);
-            this.MonitorBrand.Name = "MonitorBrand";
-            this.MonitorBrand.Size = new System.Drawing.Size(275, 20);
-            this.MonitorBrand.TabIndex = 25;
-            this.MonitorBrand.Text = "MonitorBrand";
-            // 
-            // MonitorActiveNumber
-            // 
-            this.MonitorActiveNumber.Location = new System.Drawing.Point(26, 425);
-            this.MonitorActiveNumber.Name = "MonitorActiveNumber";
-            this.MonitorActiveNumber.Size = new System.Drawing.Size(275, 20);
-            this.MonitorActiveNumber.TabIndex = 26;
-            this.MonitorActiveNumber.Text = "MonitorActiveNumber";
-            // 
-            // MonitorSerialNumber
-            // 
-            this.MonitorSerialNumber.Location = new System.Drawing.Point(330, 388);
-            this.MonitorSerialNumber.Name = "MonitorSerialNumber";
-            this.MonitorSerialNumber.Size = new System.Drawing.Size(275, 20);
-            this.MonitorSerialNumber.TabIndex = 27;
-            this.MonitorSerialNumber.Text = "MonitorSerialNumber";
-            // 
-            // textBox16
-            // 
-            this.textBox16.Location = new System.Drawing.Point(330, 425);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(275, 20);
-            this.textBox16.TabIndex = 28;
-            // 
-            // textBox17
-            // 
-            this.textBox17.Location = new System.Drawing.Point(330, 388);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(275, 20);
-            this.textBox17.TabIndex = 27;
-            // 
-            // textBox18
-            // 
-            this.textBox18.Location = new System.Drawing.Point(26, 388);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(275, 20);
-            this.textBox18.TabIndex = 26;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(271, 356);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 13);
-            this.label3.TabIndex = 25;
-            this.label3.Text = "Informacion Monitor";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // UserName
-            // 
-            this.UserName.Location = new System.Drawing.Point(26, 21);
-            this.UserName.Name = "UserName";
-            this.UserName.Size = new System.Drawing.Size(172, 20);
-            this.UserName.TabIndex = 30;
-            this.UserName.TextChanged += TextBox_TextChanged;
+            this.button1.Location = new System.Drawing.Point(521, 506);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(97, 32);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "Guardar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
 
             // Añadir los objetos al formulario
             this.Controls.Add(this.UserName);
@@ -330,7 +333,6 @@ namespace dataCollector.ui
             this.Controls.Add(this.RAM);
             this.Controls.Add(this.SerialNumber);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox16);
             this.Name = "Form1";
             this.Text = "DataCollector";
             
@@ -351,16 +353,14 @@ namespace dataCollector.ui
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Guardando información...");
+            Console.WriteLine(dataModel.UserName);
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void Form1_Shown(object sender, EventArgs e){
-            UpdatePcTextBoxes(_PcDataBoxes); // Llama la función después de que la UI se ha cargado
-        }
-
         public void UpdatePcTextBoxes(Dictionary<string, string> PcDataBoxes){
             this.SuspendLayout();
 
@@ -374,7 +374,8 @@ namespace dataCollector.ui
             this.ResumeLayout(false);
         }
         private void TextBox_TextChanged(object sender, EventArgs e){
-            CpuInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(SerialNumber.Text) &&
+            CpuInfoCheckBox.Checked =!string.IsNullOrWhiteSpace(UserName.Text)&&
+                                !string.IsNullOrWhiteSpace(SerialNumber.Text) &&
                                 !string.IsNullOrWhiteSpace(ActiveNumber.Text) &&
                                 !string.IsNullOrWhiteSpace(Model.Text) &&
                                 !string.IsNullOrWhiteSpace(Processor.Text) &&
@@ -383,15 +384,16 @@ namespace dataCollector.ui
                                 !string.IsNullOrWhiteSpace(DiskInfo.Text) &&
                                 !string.IsNullOrWhiteSpace(OperativeSystem.Text) &&
                                 !string.IsNullOrWhiteSpace(Ip.Text) &&
-                                !string.IsNullOrWhiteSpace(OfficeVersion.Text) &&
-                                !string.IsNullOrWhiteSpace(UserName.Text);
+                                !string.IsNullOrWhiteSpace(OfficeVersion.Text);
 
             UpsInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(UpsActiveNumber.Text) &&
                                 !string.IsNullOrWhiteSpace(UpsBrand.Text) &&
                                 !string.IsNullOrWhiteSpace(UpsSerialNumber.Text) &&
                                 !string.IsNullOrWhiteSpace(UpsModel.Text);
 
-            //MonitorInfoCheckBox = !string.IsNullOrWhiteSpace();
+            MonitorInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(MonitorActiveNumber.Text)&&
+                                !string.IsNullOrWhiteSpace(MonitorSerialNumber.Text)&&
+                                !string.IsNullOrWhiteSpace(MonitorBrand.Text);
         }
 
         //Declaracion de TextBoxes
@@ -405,14 +407,14 @@ namespace dataCollector.ui
         private System.Windows.Forms.TextBox OperativeSystem;
         private System.Windows.Forms.TextBox Ip;
         private System.Windows.Forms.TextBox OfficeVersion;
-        private System.Windows.Forms.TextBox UpsActiveNumber; //debe ser el 11
-        private System.Windows.Forms.TextBox UpsBrand; //debe ser el 12
-        private System.Windows.Forms.TextBox UpsSerialNumber; //debe ser el 13
-        private System.Windows.Forms.TextBox UpsModel; //debe ser el 14
-        private System.Windows.Forms.TextBox MonitorBrand; //  debe ser el 15
-        private System.Windows.Forms.TextBox MonitorActiveNumber; //  deber ser el 16
-        private System.Windows.Forms.TextBox MonitorSerialNumber; //  debe ser el 17
-        private System.Windows.Forms.TextBox textBox16; //  deber ser el 18
+        private System.Windows.Forms.TextBox UpsActiveNumber;
+        private System.Windows.Forms.TextBox UpsBrand;
+        private System.Windows.Forms.TextBox UpsSerialNumber;
+        private System.Windows.Forms.TextBox UpsModel;
+        private System.Windows.Forms.TextBox MonitorBrand;
+        private System.Windows.Forms.TextBox MonitorActiveNumber;
+        private System.Windows.Forms.TextBox MonitorSerialNumber;
+        private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox UserName;
 
         //Declaracion de CheckBoxes

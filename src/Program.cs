@@ -42,9 +42,9 @@ using dataCollector.ui;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 form1 = new Form1(uiDataGenerator.DataToDictionary(ref computer, ref network));
+            Form1 form1 = new Form1(ref computer, ref network);
             Application.Run(form1);
-            
+            Console.WriteLine(network.UserName);
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
