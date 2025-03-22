@@ -37,12 +37,16 @@ using dataCollector.ui;
                 computer.GetSystemInfo();                
                 computer.Disks = DiskInfo.GetDiskInfo();
 
-                UiDataGenerator uiDataGenerator = new UiDataGenerator();
+                UpsInfo ups = new UpsInfo();
 
+                MonitorInfo monitor = new MonitorInfo();
+
+                UiDataGenerator uiDataGenerator = new UiDataGenerator();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 form1 = new Form1(ref computer, ref network);
+            Form1 form1 = new Form1(ref computer, ref network, ref ups, ref monitor);
             Application.Run(form1);
+            Console.WriteLine("Numero de activo del UPS" + ups.GetUpsActiveNumber());
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }

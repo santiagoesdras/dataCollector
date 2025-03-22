@@ -4,7 +4,7 @@ namespace dataCollector{
         public static string ActiveNumber { get; set; } =  "";
         public static string SerialNumber { get; set; } = "";
         public MonitorInfo(){
-            GetMonitorInfo();
+            //GetMonitorInfo();
         }
         public void DisplayInfo(){
             Console.WriteLine($"Marca: {Brand}");

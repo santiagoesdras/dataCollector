@@ -107,5 +107,8 @@ namespace dataCollector{
         public void SetDeviceName(string activeNumber){
             DeviceName = activeNumber;
         }
+        public void SetOfficeVersion(string version){
+            OfficeVersion = version;
+        }
     }
 }

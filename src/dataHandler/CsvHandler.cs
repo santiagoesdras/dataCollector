@@ -9,14 +9,38 @@ namespace dataCollector{
     public class CsvHandler{
         public ComputerInfo computer { get; set; }
         public NetworkInfo network { get; set; }
+        public UpsInfo ups { get; set; }
+        public MonitorInfo monitor { get; set; }
         private static string format = "csv";
 
         private static string[][] datas = {["Nombre de Usuario", "Serie", "Activo", "Modelo", "Procesador", "Velocidad (Ghz)", "Memoria (MB)",
          "Disco", "Sistema Operativo", "Ip", "Office"], ["Nombre de Usuario", "Marca", "Activo", "Serie"], ["Nombre de usuario", "Activo", "Marca", "Modelo", "Serie"]};
         public static List<string> ActiveInfo = new List<string>();
-        public CsvHandler(ref NetworkInfo networkInfo, ref ComputerInfo computerInfo){
+        public CsvHandler(ref NetworkInfo networkInfo, ref ComputerInfo computerInfo, ref UpsInfo upsInfo, ref MonitorInfo monitorInfo){
             computer = computerInfo;
             network = networkInfo;
+            ups = upsInfo;
+            monitor = monitorInfo;
+        }
+        public void UpsLogger(){
+            string [] CsvStrings = {
+                network.GetUserName(),
+                ups.GetUpsActiveNumber(),
+                ups.GetUpsBrand(),
+                ups.GetUpsModel(),
+                ups.GetUpsSerialNumber()
+            };
+            
+            dataWritter(CsvStrings, 2);
+        }
+        public void MonitorLogger(){
+            string[] CsvStrings = {
+                network.GetUserName(),
+                monitor.GetMonitorBrand(),
+                monitor.GetMonitorActiveNumber(),
+                monitor.GetMonitorSerialNumber()
+            };
+            dataWritter(CsvStrings, 1);
         }
         public void logger(){
             if(format == "json"){

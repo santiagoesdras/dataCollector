@@ -6,35 +6,49 @@ namespace dataCollector.ui
 {
     public class Form1 : Form
     {
+        private bool SavePcInfo;
         private System.ComponentModel.IContainer components = null;
         private Dictionary<string, string> _PcDataBoxes;
         private UiDataModel dataModel;
         private UiDataModel.UiPcDataModel pcDataModel;
+        private UiDataModel.UiUpsDataModel uiUpsDataModel;
+        private UiDataModel.UiMonitorModel uiMonitorModel;
         UpdateData updateData;
         CsvHandler csvHandler;
 
-        public Form1(ref ComputerInfo computerInfo, ref NetworkInfo networkInfo)
+        public Form1(ref ComputerInfo computerInfo, ref NetworkInfo networkInfo, ref UpsInfo upsInfo, ref MonitorInfo monitorInfo)
         {
             InitializeComponent();
             UiDataModel uiDataModel = new UiDataModel();
             dataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
             pcDataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
+            uiUpsDataModel = new UiDataModel.UiUpsDataModel();
             InitializeDataBindings();
-            updateData = new UpdateData(ref computerInfo, ref networkInfo, ref dataModel, ref pcDataModel);
-            csvHandler = new CsvHandler(ref networkInfo, ref computerInfo);
+            updateData = new UpdateData(ref computerInfo, ref networkInfo, ref upsInfo, ref monitorInfo, ref dataModel, ref pcDataModel, ref uiUpsDataModel);
+            csvHandler = new CsvHandler(ref networkInfo, ref computerInfo, ref upsInfo, ref monitorInfo);
         }
         private void InitializeDataBindings(){
+            //Vinculando informacion PC
             UserName.DataBindings.Add("Text", dataModel, "UserName", false, DataSourceUpdateMode.OnPropertyChanged);
             SerialNumber.DataBindings.Add("Text", pcDataModel, "SerialNumber", false, DataSourceUpdateMode.OnPropertyChanged);
             ActiveNumber.DataBindings.Add("Text", pcDataModel, "ActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
-            Model.DataBindings.Add("Text", dataModel, "Model", false, DataSourceUpdateMode.OnPropertyChanged);
-            Processor.DataBindings.Add("Text", dataModel, "Processor", false, DataSourceUpdateMode.OnPropertyChanged);
-            ProcessorSpeed.DataBindings.Add("Text", dataModel, "ProcessorSpeed", false, DataSourceUpdateMode.OnPropertyChanged);
-            RAM.DataBindings.Add("Text", dataModel, "RAM", false, DataSourceUpdateMode.OnPropertyChanged);
-            DiskInfo.DataBindings.Add("Text", dataModel, "DiskInfo", false, DataSourceUpdateMode.OnPropertyChanged);
-            OperativeSystem.DataBindings.Add("Text", dataModel, "OperativeSystem", false, DataSourceUpdateMode.OnPropertyChanged);
-            Ip.DataBindings.Add("Text", dataModel, "Ip", false, DataSourceUpdateMode.OnPropertyChanged);
-            OfficeVersion.DataBindings.Add("Text", dataModel, "OfficeVersion", false, DataSourceUpdateMode.OnPropertyChanged);
+            Model.DataBindings.Add("Text", pcDataModel, "Model", false, DataSourceUpdateMode.OnPropertyChanged);
+            Processor.DataBindings.Add("Text", pcDataModel, "Processor", false, DataSourceUpdateMode.OnPropertyChanged);
+            ProcessorSpeed.DataBindings.Add("Text", pcDataModel, "ProcessorSpeed", false, DataSourceUpdateMode.OnPropertyChanged);
+            RAM.DataBindings.Add("Text", pcDataModel, "RAM", false, DataSourceUpdateMode.OnPropertyChanged);
+            DiskInfo.DataBindings.Add("Text", pcDataModel, "DiskInfo", false, DataSourceUpdateMode.OnPropertyChanged);
+            OperativeSystem.DataBindings.Add("Text", pcDataModel, "OperativeSystem", false, DataSourceUpdateMode.OnPropertyChanged);
+            Ip.DataBindings.Add("Text", pcDataModel, "Ip", false, DataSourceUpdateMode.OnPropertyChanged);
+            OfficeVersion.DataBindings.Add("Text", pcDataModel, "OfficeVersion", false, DataSourceUpdateMode.OnPropertyChanged);
+
+            //Vinculando informacion UPS
+            UpsActiveNumber.DataBindings.Add("Text", uiUpsDataModel, "UpsActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            UpsBrand.DataBindings.Add("Text", uiUpsDataModel, "UpsBrand", false, DataSourceUpdateMode.OnPropertyChanged);
+            UpsModel.DataBindings.Add("Text", uiUpsDataModel, "UpsModel", false, DataSourceUpdateMode.OnPropertyChanged);
+            UpsSerialNumber.DataBindings.Add("Text", uiUpsDataModel, "UpsSerialNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+
+            //Vinculando informacion Monitor
+            MonitorActiveNumber.DataBindings.Add("Text", uiMonitorModel, "MonitorActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
         }
         protected override void Dispose(bool disposing)
         {
@@ -76,6 +90,7 @@ namespace dataCollector.ui
             this.MonitorBrand = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.UserName = new System.Windows.Forms.TextBox();
+            this.ActiveNumberLabel = new System.Windows.Forms.Label();
             // 
             // label1
             // 
@@ -96,6 +111,15 @@ namespace dataCollector.ui
             this.SerialNumber.TabIndex = 1;
             this.SerialNumber.PlaceholderText = "SerialNumber";            
             this.SerialNumber.TextChanged += TextBox_TextChanged;
+            //
+            //ActiveNumberLabel
+            //
+            this.ActiveNumberLabel.AutoSize = true;
+            this.ActiveNumberLabel.Location = new System.Drawing.Point(30, 79);
+            this.ActiveNumberLabel.Name = "ActiveNumberLabel";
+            this.ActiveNumberLabel.Size = new System.Drawing.Size(35, 13);
+            this.ActiveNumberLabel.TabIndex = 35;
+            this.ActiveNumberLabel.Text = "No. Activo";
             // 
             // ActiveNumber
             // 
@@ -349,6 +373,7 @@ namespace dataCollector.ui
             this.Controls.Add(this.RAM);
             this.Controls.Add(this.SerialNumber);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.ActiveNumberLabel);
             this.Name = "Form1";
             this.Text = "DataCollector";
             
@@ -367,11 +392,18 @@ namespace dataCollector.ui
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            updateData.updatePcData();
-            csvHandler.logger();
-            MessageBox.Show("Guardando información...");
-            this.Close();
+        {   
+            if(SavePcInfo){
+                updateData.updatePcData();
+                updateData.updateUpsData();
+                csvHandler.logger();
+                csvHandler.UpsLogger();
+                csvHandler.MonitorLogger();
+                MessageBox.Show("Informacion almacenada...");
+                this.Close();
+            }else{
+                MessageBox.Show("Debe completar la informacion para almacenarla.");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -411,6 +443,7 @@ namespace dataCollector.ui
             MonitorInfoCheckBox.Checked = !string.IsNullOrWhiteSpace(MonitorActiveNumber.Text)&&
                                 !string.IsNullOrWhiteSpace(MonitorSerialNumber.Text)&&
                                 !string.IsNullOrWhiteSpace(MonitorBrand.Text);
+            SavePcInfo = CpuInfoCheckBox.Checked;
         }
 
         //Declaracion de TextBoxes
@@ -447,5 +480,6 @@ namespace dataCollector.ui
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ActiveNumberLabel;
     }
 }

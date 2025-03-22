@@ -5,7 +5,7 @@ namespace dataCollector{
         public static string Model { get; set; } = ""; 
         public static string SerialNumber { get; set; } = "";
         public UpsInfo(){
-            GetUpsInfo();
+            //GetUpsInfo();
         }
         public void DisplayInfo(){
             Console.WriteLine($"Numero de activo: {ActiveNumber}");
@@ -50,6 +50,18 @@ namespace dataCollector{
         }
         public string GetUpsSerialNumber(){
             return SerialNumber.ToString();
+        }
+        public void SetUpsActiveNumber(string activeNumber){
+            ActiveNumber = activeNumber;
+        }
+        public void SetUpsBrand(string brand){
+            Brand = brand;
+        }
+        public void SetUpsModel(string model){
+            Model = model;
+        }
+        public void SetUpsSerialNumber(string serialNumber){
+            SerialNumber = serialNumber;
         }
     }
 }
