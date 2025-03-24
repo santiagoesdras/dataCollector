@@ -20,7 +20,9 @@ namespace dataCollector.dataHandler{
             public string UpsSerialNumber { get; set; }
         }
         public class UiMonitorModel: UiDataModel{
-
+            public string MonitorActiveNumber { get; set; }
+            public string MonitorSerialNumber { get; set; }
+            public string MonitorBrand { get; set; }
         }
         public UiPcDataModel GenerateUiData(ref ComputerInfo computerInfo, ref NetworkInfo networkInfo){
             List<string> disks = new List<string>();

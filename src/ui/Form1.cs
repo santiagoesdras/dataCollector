@@ -7,12 +7,14 @@ namespace dataCollector.ui
     public class Form1 : Form
     {
         private bool SavePcInfo;
+        private bool SaveUpsInfo;
+        private bool SaveMonitorInfo;
         private System.ComponentModel.IContainer components = null;
         private Dictionary<string, string> _PcDataBoxes;
         private UiDataModel dataModel;
         private UiDataModel.UiPcDataModel pcDataModel;
         private UiDataModel.UiUpsDataModel uiUpsDataModel;
-        private UiDataModel.UiMonitorModel uiMonitorModel;
+        private UiDataModel.UiMonitorModel monitorDataModel;
         UpdateData updateData;
         CsvHandler csvHandler;
 
@@ -23,8 +25,9 @@ namespace dataCollector.ui
             dataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
             pcDataModel = uiDataModel.GenerateUiData(ref computerInfo, ref networkInfo);
             uiUpsDataModel = new UiDataModel.UiUpsDataModel();
+            monitorDataModel = new UiDataModel.UiMonitorModel();
             InitializeDataBindings();
-            updateData = new UpdateData(ref computerInfo, ref networkInfo, ref upsInfo, ref monitorInfo, ref dataModel, ref pcDataModel, ref uiUpsDataModel);
+            updateData = new UpdateData(ref computerInfo, ref networkInfo, ref upsInfo, ref monitorInfo, ref dataModel, ref pcDataModel, ref uiUpsDataModel, ref monitorDataModel);
             csvHandler = new CsvHandler(ref networkInfo, ref computerInfo, ref upsInfo, ref monitorInfo);
         }
         private void InitializeDataBindings(){
@@ -48,7 +51,9 @@ namespace dataCollector.ui
             UpsSerialNumber.DataBindings.Add("Text", uiUpsDataModel, "UpsSerialNumber", false, DataSourceUpdateMode.OnPropertyChanged);
 
             //Vinculando informacion Monitor
-            MonitorActiveNumber.DataBindings.Add("Text", uiMonitorModel, "MonitorActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            MonitorActiveNumber.DataBindings.Add("Text", monitorDataModel, "MonitorActiveNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            MonitorSerialNumber.DataBindings.Add("Text", monitorDataModel, "MonitorSerialNumber", false, DataSourceUpdateMode.OnPropertyChanged);
+            MonitorBrand.DataBindings.Add("Text", monitorDataModel, "MonitorBrand", false, DataSourceUpdateMode.OnPropertyChanged);
         }
         protected override void Dispose(bool disposing)
         {
@@ -393,9 +398,10 @@ namespace dataCollector.ui
 
         private void button1_Click(object sender, EventArgs e)
         {   
-            if(SavePcInfo){
+            if(SavePcInfo && SaveUpsInfo && SaveMonitorInfo){
                 updateData.updatePcData();
                 updateData.updateUpsData();
+                updateData.updateMonitorData();
                 csvHandler.logger();
                 csvHandler.UpsLogger();
                 csvHandler.MonitorLogger();
@@ -444,6 +450,8 @@ namespace dataCollector.ui
                                 !string.IsNullOrWhiteSpace(MonitorSerialNumber.Text)&&
                                 !string.IsNullOrWhiteSpace(MonitorBrand.Text);
             SavePcInfo = CpuInfoCheckBox.Checked;
+            SaveUpsInfo = UpsInfoCheckBox.Checked;
+            SaveMonitorInfo = MonitorInfoCheckBox.Checked;
         }
 
         //Declaracion de TextBoxes

@@ -45,5 +45,14 @@ namespace dataCollector{
         public string GetMonitorSerialNumber(){
             return SerialNumber.ToString();
         }
+        public void SetMonitorBrand(string brand){
+            Brand = brand;
+        }
+        public void SetMonitorActiveNumber(string activeNumber){
+            ActiveNumber = activeNumber;
+        }
+        public void SetMonitorSerialNumber(string serialNumber){
+            SerialNumber = serialNumber;
+        }
     }
 }
