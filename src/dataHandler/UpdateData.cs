@@ -22,9 +22,9 @@ namespace dataCollector.dataHandler{
             this.uiMonitorModel = monitorDataModel;
         }
         public void updatePcData(){
-//            Console.WriteLine("Nombre de usuario en uidDataModel: " + uiDataModel.UserName);
+//          Console.WriteLine("Nombre de usuario en uidDataModel: " + uiDataModel.UserName);
             networkInfo.SetUserName(uiDataModel.UserName);
-            Console.WriteLine(pcDataModel.ActiveNumber);
+            //Console.WriteLine(pcDataModel.ActiveNumber);
             computerInfo.SetDeviceName(pcDataModel.ActiveNumber);
             computerInfo.SetOfficeVersion(pcDataModel.OfficeVersion);
         }
@@ -38,7 +38,7 @@ namespace dataCollector.dataHandler{
             monitorInfo.SetMonitorActiveNumber(uiMonitorModel.MonitorActiveNumber);
             monitorInfo.SetMonitorSerialNumber(uiMonitorModel.MonitorSerialNumber);
             monitorInfo.SetMonitorBrand(uiMonitorModel.MonitorBrand);
-            Console.WriteLine("Activo de monitor: " + monitorInfo.GetMonitorActiveNumber());
+            //Console.WriteLine("Activo de monitor: " + monitorInfo.GetMonitorActiveNumber());
         }
     }
 }

@@ -16,7 +16,7 @@ using dataCollector.ui;
         static void Main(string[] args){
             CpuInfo();
         }
-        public static void infoWritterSelector(string type){
+/*         public static void infoWritterSelector(string type){
             if(type == ""){
                 Console.WriteLine("Tipo de activo no reconocido");
             }else if(type == "CPU"){
@@ -26,7 +26,7 @@ using dataCollector.ui;
             }else if(type == "UPS"){
                 //UpsInfo();
             }
-        }
+        } */
         public static void CpuInfo(){
             
             try{
@@ -46,7 +46,7 @@ using dataCollector.ui;
             Application.SetCompatibleTextRenderingDefault(false);
             Form1 form1 = new Form1(ref computer, ref network, ref ups, ref monitor);
             Application.Run(form1);
-            Console.WriteLine("Numero de activo del UPS" + ups.GetUpsActiveNumber());
+//            Console.WriteLine("Numero de activo del UPS" + ups.GetUpsActiveNumber());
             }catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
