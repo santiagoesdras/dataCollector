@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using CsvHelper.Configuration.Attributes;
 using dataCollector.dataHandler;
 
 namespace dataCollector.ui
@@ -398,17 +399,21 @@ namespace dataCollector.ui
 
         private void button1_Click(object sender, EventArgs e)
         {   
-            if(SavePcInfo && SaveUpsInfo && SaveMonitorInfo){
-                updateData.updatePcData();
-                updateData.updateUpsData();
-                updateData.updateMonitorData();
-                csvHandler.logger();
-                csvHandler.UpsLogger();
-                csvHandler.MonitorLogger();
-                MessageBox.Show("Informacion almacenada.");
-                this.Close();
-            }else{
+            if(!SavePcInfo || !SaveUpsInfo || !SaveMonitorInfo){
                 MessageBox.Show("Debe completar la informacion para almacenarla.");
+            }else{
+                if(SavePcInfo){
+                    updateData.updatePcData();
+                    csvHandler.logger();
+                }if(SaveUpsInfo){
+                    updateData.updateUpsData();
+                    csvHandler.UpsLogger();
+                }if(SaveMonitorInfo){
+                    updateData.updateMonitorData();
+                    csvHandler.MonitorLogger();
+                }
+                    MessageBox.Show("Informacion almacenada.");
+                    this.Close();
             }
         }
 
