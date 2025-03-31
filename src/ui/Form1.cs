@@ -405,7 +405,7 @@ namespace dataCollector.ui
                 csvHandler.logger();
                 csvHandler.UpsLogger();
                 csvHandler.MonitorLogger();
-                MessageBox.Show("Informacion almacenada...");
+                MessageBox.Show("Informacion almacenada.");
                 this.Close();
             }else{
                 MessageBox.Show("Debe completar la informacion para almacenarla.");
