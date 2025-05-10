@@ -399,7 +399,7 @@ namespace dataCollector.ui
 
         private void button1_Click(object sender, EventArgs e)
         {   
-            if(!SavePcInfo || !SaveUpsInfo || !SaveMonitorInfo){
+            if(!SavePcInfo && !SaveUpsInfo && !SaveMonitorInfo){
                 MessageBox.Show("Debe completar la informacion para almacenarla.");
             }else{
                 if(SavePcInfo){
