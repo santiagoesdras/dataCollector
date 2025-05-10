@@ -399,20 +399,24 @@ namespace dataCollector.ui
 
         private void button1_Click(object sender, EventArgs e)
         {   
+            List<String> infoSaved = new List<String>();
             if(!SavePcInfo && !SaveUpsInfo && !SaveMonitorInfo){
                 MessageBox.Show("Debe completar la informacion para almacenarla.");
             }else{
                 if(SavePcInfo){
                     updateData.updatePcData();
                     csvHandler.logger();
+                    infoSaved.Add("CPU");
                 }if(SaveUpsInfo){
                     updateData.updateUpsData();
                     csvHandler.UpsLogger();
+                    infoSaved.Add("UPS");
                 }if(SaveMonitorInfo){
                     updateData.updateMonitorData();
                     csvHandler.MonitorLogger();
+                    infoSaved.Add("Monitor");
                 }
-                    MessageBox.Show("Informacion almacenada.");
+                    MessageBox.Show("Informacion almacenada: " + string.Join(", ", infoSaved));
                     this.Close();
             }
         }
